@@ -39,6 +39,10 @@ module.exports = {
           key: 'id',
         },
       },
+      curr_location: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       status: {
         allowNull: false,
         type: Sequelize.STRING,
