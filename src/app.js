@@ -6,6 +6,9 @@ const path = require('path');
 // для хранения даннах из куки
 const FileStore = require('session-file-store')(expressSession);
 
+const viewsRouter = require('./routes/views');
+const courierRouter = require('./routes/courier');
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -37,6 +40,8 @@ app.use('/', indexRouter);
 // app.get('/', (req, res) => {
 //   res.send('Привет');
 // });
+app.use('/', viewsRouter);
+app.use('/', courierRouter);
 
 app.listen(PORT, async () => {
   console.log(`Server started on port ${PORT}`);

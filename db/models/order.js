@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       image: DataTypes.STRING,
       courier_id: DataTypes.INTEGER,
       client_id: DataTypes.INTEGER,
+      curr_location: DataTypes.STRING,
       status: DataTypes.STRING,
     },
     {
