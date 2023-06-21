@@ -7,7 +7,7 @@ const renderTemplate = require('../lib/renderTemplate');
 const Register = require('../views/Register');
 const Login = require('../views/Login');
 
-const { Order, Courier } = require('../../db/models');
+const { Order, Courier, Offer } = require('../../db/models');
 
 router.get('/register', async (req, res) => {
   renderTemplate(Register, {}, res);
@@ -49,7 +49,6 @@ router.post('/login', async (req, res) => {
 
       if (hashPass) {
         req.session.user = courier;
-
         res.json(courier);
       } else {
         res.redirect('/register');
@@ -70,7 +69,6 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/new-order', async (req, res) => {
-  //   const username = req.session?.username;
   const { name, price, address, image } = req.body;
   const username = req.session?.user?.couriername;
   try {
@@ -78,8 +76,7 @@ router.post('/new-order', async (req, res) => {
       where: { couriername: username },
       raw: true,
     });
-    console.log('-------------', courierData.id);
-    const order = await Order.create({
+    const order = await Offer.create({
       name,
       price,
       image: 'none', //! type: 'string violation',
@@ -87,8 +84,8 @@ router.post('/new-order', async (req, res) => {
       curr_location: address,
       status: 'Размещен',
     });
+    console.log('новый заказ---------------', order);
     if (order) {
-      // ! посмотреть что возвращает order
       res.sendStatus(200);
     } else {
       res.sendStatus(400);
@@ -101,17 +98,23 @@ router.post('/new-order', async (req, res) => {
 
 router.patch('/orders', async (req, res) => {
   //   const username = req.session?.username;
+  const id = Number(req.body.id);
+  console.log('-----------------', id);
   try {
-    const currOrder = await Order.findOne({
-      where: { id: req.params.id }, // ?
+    const currOffer = await Offer.findOne({
+      where: { id }, // ?
       raw: true,
     });
-    const updOrder = await Order.update(
+    console.log('что возвращает поиск', currOffer);
+    const updOrder = await Offer.update(
       { status: 'Доставлен' },
-      { where: { id: req.params.id } },
+      { where: { id } },
     );
-    console.log('ручка обновления статусааааа', updOrder);
-    res.sendStatus(200); // ? else на случай ошибки
+    if (updOrder) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(400);
+    }
   } catch (error) {
     console.log(error);
   }

@@ -1,43 +1,52 @@
 const React = require('react');
 const Layout = require('./Layout');
-module.exports = function Home({ user, read }) {
+
+module.exports = function Main({ user, offers }) {
   return (
     <Layout user={user}>
-      {read.length > 0 ? (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {read.map((product) => (
-            <div className="card" style={{ width: '18rem', margin: '10px' }}>
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">
+      {offers.length > 0 ? (
+        <div className="flex">
+          {offers.map((product) => (
+            <div className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <a href="#">
+                <img
+                  className="rounded-t-lg"
+                  src=""
+                  alt="здесь будет картинка"
+                />
+              </a>
+              <div className="p-5">
+                <a href="#">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {product.name}
+                  </h5>
+                </a>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   Цена со скидкой: {product.price / 2}
                 </p>
-                <p
-                  style={{ textDecoration: 'line-through' }}
-                  className="card-text"
-                >
-                  Цена: {product.price}
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Изначальная цена: {product.price}
                 </p>
                 {user ? (
                   <>
-                    <a href="#" className="btn btn-primary">
+                    <a
+                      href="#"
+                      className="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    >
                       В корзину
                     </a>
 
                     <a
-                      style={{ marginLeft: '30px' }}
                       href="#"
-                      className="btn btn-primary"
+                      className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                     >
                       Подробнее
                     </a>
                   </>
                 ) : (
                   <a
-                    style={{ display: 'flex', justifyContent: 'center' }}
                     href="#"
-                    className="btn btn-primary"
+                    className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                   >
                     Подробнее
                   </a>
@@ -47,7 +56,7 @@ module.exports = function Home({ user, read }) {
           ))}
         </div>
       ) : (
-        <h3>Продукты еще не добавлены</h3>
+        <h3>Сейчас нет актуальных предложений, зайдите позже</h3>
       )}
     </Layout>
   );
