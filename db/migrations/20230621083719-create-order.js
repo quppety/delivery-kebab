@@ -9,6 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       client_id: {
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -18,6 +19,7 @@ module.exports = {
         },
       },
       offer_id: {
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: {

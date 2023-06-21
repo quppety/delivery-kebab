@@ -20,6 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       courier_id: {
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: {
