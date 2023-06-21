@@ -3,23 +3,33 @@ const renderTemplate = require('../lib/renderTemplate');
 const CourierOrders = require('../views/courier/CourierOrders');
 const Profile = require('../views/courier/Profile');
 
-const { Order } = require('../../db/models');
+const { Offer, Courier, Order, Client } = require('../../db/models');
 
-router.get('/profile', async (req, res) => {
-  const username = req.session?.username;
+router.get('/couriers/profile', async (req, res) => {
+  const username = req.session?.user;
   renderTemplate(Profile, { username }, res);
 });
 
-router.get('/orders', async (req, res) => {
-  const username = req.session?.username;
-  // const courier = Courier.findOne({where: {username}}, raw:true )
-  // const orders = Order.findAll({ where: {courier_id: courier.id }, raw: true})
-  // и прокинуть orders в пропс
-  const orders = Order.findAll({
-    where: { courier_id: 1 },
-    raw: true,
-  });
-  renderTemplate(CourierOrders, { username, orders }, res);
+router.get('/couriers/orders', async (req, res) => {
+  const username = req.session?.user;
+  const couriername = req.session?.user?.couriername;
+  try {
+    const courier = await Courier.findOne({
+      where: { couriername },
+      raw: true,
+    });
+    const offers = await Offer.findAll({
+      order: [['id', 'ASC']],
+      where: { courier_id: courier.id },
+      include: [{ model: Order, include: [Client] }],
+      raw: true,
+      nest: true,
+    });
+    // console.log(offers);
+    renderTemplate(CourierOrders, { username, offers }, res);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

@@ -12,13 +12,13 @@ registerForm.addEventListener('submit', async (e) => {
   let response = null;
 
   if (checkbox.checked) {
-    response = await fetch('http://localhost:3000/courier/register', {
+    response = await fetch('http://localhost:3000/couriers/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
   } else {
-    response = await fetch('http://localhost:3000/client/register', {
+    response = await fetch('http://localhost:3000/clients/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

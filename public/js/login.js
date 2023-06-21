@@ -10,29 +10,30 @@ loginForm.addEventListener('submit', async (e) => {
   };
   console.log(data);
 
-  const response = await fetch('http://localhost:3000/client/login', {
+  const response = await fetch('http://localhost:3000/clients/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
 
   if (!response.ok) {
-    const courierResponse = await fetch('http://localhost:3000/courier/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    const courierResponse = await fetch(
+      'http://localhost:3000/couriers/login',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      },
+    );
     console.log('courier', courierResponse);
     if (courierResponse.ok) {
       window.location.href = 'http://localhost:3000/';
     } else {
       error.textContent = 'Неверный пароль или email';
     }
+  } else if (response.ok) {
+    window.location.href = 'http://localhost:3000/';
   } else {
-    if (response.ok) {
-      window.location.href = 'http://localhost:3000/';
-    } else {
-      error.textContent = 'Неверный пароль или email';
-    }
+    error.textContent = 'Неверный пароль или email';
   }
 });

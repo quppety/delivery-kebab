@@ -8,29 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      price: {
-        allowNull: false,
-        type: Sequelize.DECIMAL,
-      },
-      image: {
-        type: Sequelize.STRING,
-      },
-      courier_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'Couriers',
-          },
-          key: 'id',
-        },
-      },
       client_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -39,13 +17,14 @@ module.exports = {
           key: 'id',
         },
       },
-      curr_location: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      status: {
-        allowNull: false,
-        type: Sequelize.STRING,
+      offer_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Offers',
+          },
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
