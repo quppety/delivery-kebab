@@ -4,14 +4,14 @@ addOrderForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
   try {
-    const response = await fetch('/new-order', {
+    const response = await fetch('/couriers/new-order', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(Object.fromEntries(data)),
       credentials: 'include',
     });
     if (response.status === 200) {
-      window.location.href = '/orders';
+      window.location.href = '/couriers/orders';
     } else {
       const warning = document.createElement('p');
       warning.innerText = 'Something went wrong, try again later';

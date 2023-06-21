@@ -1,66 +1,16 @@
 const router = require('express').Router();
-const renderTemplate = require('../lib/renderTemplate');
-const CourierOrders = require('../views/courier/CourierOrders');
-const Profile = require('../views/courier/Profile');
-
-const { Order, User } = require('../../db/models');
-
-router.post('/new-order', async (req, res) => {
-  //   const username = req.session?.username;
-  const { name, price, address, image } = req.body;
-  try {
-    const courierData = await User.findOne({
-      // ! модель User заменить на Courier
-      where: { username: 'john' }, // ! только для теста
-      raw: true,
-    });
-    const order = await Order.create({
-      name,
-      price,
-      image: 'none', //! type: 'string violation',
-      client_id: courierData.id,
-      courier_id: courierData.id,
-      curr_location: address,
-      status: 'Размещен',
-    });
-    if (order) {
-      // ! посмотреть что возвращает order
-      res.sendStatus(200);
-    } else {
-      res.sendStatus(400);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-router.patch('/orders', async (req, res) => {
-  //   const username = req.session?.username;
-  try {
-    const currOrder = await Order.findOne({
-      where: { id: req.params.id }, // ?
-      raw: true,
-    });
-    await Order.update(
-      { status: 'Доставлен' },
-      { where: { id: req.params.id } },
-    );
-    res.sendStatus(200); // ? else на случай ошибки
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-module.exports = router;
-const router = require('express').Router();
-const renderTemplate = require('../lib/renderTemplate');
 const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
-const register = require('../views/Register');
-const login = require('../views/Login');
-const { Courier } = require('../../db/models');
+
+const renderTemplate = require('../lib/renderTemplate');
+
+const Register = require('../views/Register');
+const Login = require('../views/Login');
+
+const { Order, Courier } = require('../../db/models');
+
 router.get('/register', async (req, res) => {
-  renderTemplate(register, {}, res);
+  renderTemplate(Register, {}, res);
 });
 
 router.post('/register', async (req, res) => {
@@ -74,19 +24,17 @@ router.post('/register', async (req, res) => {
   if (created) {
     req.session.user = courier;
     res.json({ ok: 'ok ' });
+  } else if (courier.couriername === login) {
+    res.json({ login: 'login ' });
+  } else if (courier.email === email) {
+    res.json({ email: 'Email ' });
   } else {
-    if (courier.couriername === login) {
-      res.json({ login: 'login ' });
-    } else if (courier.email === email) {
-      res.json({ email: 'Email ' });
-    } else {
-      res.status(400).json({});
-    }
+    res.status(400).json({});
   }
 });
 
 router.get('/login', async (req, res) => {
-  renderTemplate(login, {}, res);
+  renderTemplate(Login, {}, res);
 });
 
 router.post('/login', async (req, res) => {
@@ -119,6 +67,54 @@ router.get('/logout', (req, res) => {
     res.clearCookie('connect.sid');
     res.redirect('/');
   });
+});
+
+router.post('/new-order', async (req, res) => {
+  //   const username = req.session?.username;
+  const { name, price, address, image } = req.body;
+  const username = req.session?.user?.couriername;
+  try {
+    const courierData = await Courier.findOne({
+      where: { couriername: username },
+      raw: true,
+    });
+    console.log('-------------', courierData.id);
+    const order = await Order.create({
+      name,
+      price,
+      image: 'none', //! type: 'string violation',
+      courier_id: courierData.id,
+      curr_location: address,
+      status: 'Размещен',
+    });
+    if (order) {
+      // ! посмотреть что возвращает order
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(400);
+    }
+    res.end();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.patch('/orders', async (req, res) => {
+  //   const username = req.session?.username;
+  try {
+    const currOrder = await Order.findOne({
+      where: { id: req.params.id }, // ?
+      raw: true,
+    });
+    const updOrder = await Order.update(
+      { status: 'Доставлен' },
+      { where: { id: req.params.id } },
+    );
+    console.log('ручка обновления статусааааа', updOrder);
+    res.sendStatus(200); // ? else на случай ошибки
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;

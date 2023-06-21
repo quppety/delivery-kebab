@@ -1,12 +1,15 @@
 const router = require('express').Router();
-const renderTemplate = require('../lib/renderTemplate');
 const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
-const register = require('../views/Register');
-const login = require('../views/Login');
+
+const renderTemplate = require('../lib/renderTemplate');
+const Register = require('../views/Register');
+const Login = require('../views/Login');
+
 const { Client } = require('../../db/models');
+
 router.get('/register', async (req, res) => {
-  renderTemplate(register, {}, res);
+  renderTemplate(Register, {}, res);
 });
 
 router.post('/register', async (req, res) => {
@@ -20,19 +23,17 @@ router.post('/register', async (req, res) => {
   if (created) {
     req.session.user = client;
     res.json({ ok: 'ok ' });
+  } else if (client.username === login) {
+    res.json({ login: 'login ' });
+  } else if (client.email === email) {
+    res.json({ email: 'Email ' });
   } else {
-    if (client.username === login) {
-      res.json({ login: 'login ' });
-    } else if (client.email === email) {
-      res.json({ email: 'Email ' });
-    } else {
-      res.status(400).json({});
-    }
+    res.status(400).json({});
   }
 });
 
 router.get('/login', async (req, res) => {
-  renderTemplate(login, {}, res);
+  renderTemplate(Login, {}, res);
 });
 
 router.post('/login', async (req, res) => {

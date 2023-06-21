@@ -20,14 +20,18 @@ module.exports = function Layout(props) {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/client/logout/">
+              <a className="nav-link" href="/clients/logout/">
                 Выход
               </a>
             </li>
             <li className="nav-item">
               <a
                 className="nav-link"
-                href={`/${user.username ? 'client/lk' : 'courier/lk'}`}
+                href={`/${
+                  user.username
+                    ? `clients/${user.id}/cabinet`
+                    : 'couriers/profile'
+                }`}
               >
                 {user.username || user.couriername}
               </a>
@@ -41,12 +45,12 @@ module.exports = function Layout(props) {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/client/login/">
+              <a className="nav-link" href="/clients/login/">
                 Вход
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" href="/client/register/">
+              <a className="nav-link active" href="/clients/register/">
                 Регистрация
               </a>
             </li>
@@ -56,18 +60,18 @@ module.exports = function Layout(props) {
         <script
           src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
           integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-          crossorigin="anonymous"
-        ></script>
+          crossOrigin="anonymous"
+        />
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
           integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-          crossorigin="anonymous"
-        ></script>
+          crossOrigin="anonymous"
+        />
         <script
           src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-          crossorigin="anonymous"
-        ></script>
+          crossOrigin="anonymous"
+        />
       </body>
       <script defer src="/js/application.js" />
     </html>

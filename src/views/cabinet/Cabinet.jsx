@@ -1,7 +1,7 @@
 const React = require('react');
 const Layout = require('../Layout');
 
-module.exports = function Cabinet() {
+module.exports = function Cabinet({ username }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -9,9 +9,10 @@ module.exports = function Cabinet() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch('/users/:id/cabinet', {
+      const response = await fetch(`/clients/${username.id}/cabinet`, {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData)),
       });
 
       if (response.ok) {
@@ -27,11 +28,11 @@ module.exports = function Cabinet() {
   };
 
   return (
-    <Layout>
+    <Layout user={username}>
       <form
         id="myForm"
         method="POST"
-        action="/users/:id/cabinet"
+        action={`/clients/${username.id}/cabinet`}
         style={{ color: 'red' }}
         onSubmit={handleSubmit}
       >
@@ -48,7 +49,7 @@ module.exports = function Cabinet() {
           Phone number:
           <input
             id="phone"
-            name="phoneNumber"
+            name="phone"
             type="text"
             placeholder="укажи номер своего телефона"
           />
@@ -76,7 +77,7 @@ module.exports = function Cabinet() {
           id="purchased"
           type="submit"
           method="POST"
-          action="/users/:id/cabinet/valid"
+          action="/clients/:id/cabinet/valid"
         >
           Оплатить
         </button>
