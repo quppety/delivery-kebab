@@ -6,7 +6,7 @@ const { Offer } = require('../../db/models');
 
 router.get('/', async (req, res) => {
   const { user } = req.session;
-  const offers = await Offer.findAll({});
+  const offers = await Offer.findAll({ where: { status: 'Размещен' } });
   renderTemplate(Main, { user, offers }, res);
 });
 
