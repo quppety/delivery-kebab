@@ -1,9 +1,14 @@
 const React = require('react');
+const ReactDOMServer = require('react-dom')
 const Layout = require('../Layout');
+
+const GetImages - require('../../apiUnsplash/GetImages')
+
 
 module.exports = function Cabinet({ username }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
+
 
     const form = event.target;
     const formData = new FormData(form);

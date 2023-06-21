@@ -22,8 +22,10 @@ module.exports = cabinetRoute
       // Save the form data to the database
       const user = await Client.findOne({ where: { id } });
       if (user) {
+
         await Client.update({ phone, address }, { where: { id: user.id } });
         res.sendStatus(200);
+
       } else {
         res.sendStatus(404);
       }
