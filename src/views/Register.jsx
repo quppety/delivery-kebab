@@ -56,7 +56,7 @@ module.exports = function Registr() {
             required
             id="password-input"
             name="password"
-            type="text"
+            type="password"
             tabIndex="3"
             className="block w-100 no-outline no-border pad-1 mar-b-2"
           />
@@ -67,7 +67,7 @@ module.exports = function Registr() {
           <div
             id="error"
             style={{ color: 'red', fontSize: '16px', textAlign: 'center' }}
-          ></div>
+          />
           <input
             style={{ marginTop: '20px' }}
             type="submit"
@@ -77,7 +77,7 @@ module.exports = function Registr() {
           />
         </form>
       </div>
-      <script src="/js/register.js"></script>
+      <script src="/js/register.js" />
     </Loyout>
   );
 };

@@ -17,26 +17,26 @@ function Login() {
           }}
         >
           <h1>Вход</h1>
-          <div class="login-box">
+          <div className="login-box">
             <form id="loginForm" method="post" action="/client/login">
-              <div class="user-box">
-                <input type="email" name="email" required=""></input>
+              <div className="user-box">
+                <input type="email" name="email" required />
                 <label>Email</label>
               </div>
-              <div class="user-box">
-                <input type="password" name="password" required=""></input>
+              <div className="user-box">
+                <input type="password" name="password" required />
                 <label>Password</label>
               </div>
               <div
                 id="error"
                 style={{ color: 'red', fontSize: '16px', textAlign: 'center' }}
-              ></div>
-              <button class="btnlog" type="submit">
+              />
+              <button className="btnlog" type="submit">
                 Войти
-                <span></span>
+                <span />
               </button>
 
-              <div class="span">
+              <div className="span">
                 Нет учетной записи?
                 <a href="/client/register/"> Регистрация</a>
               </div>
@@ -44,7 +44,7 @@ function Login() {
           </div>
         </div>
       </div>
-      <script src="/js/login.js"></script>
+      <script src="/js/login.js" />
     </Layout>
   );
 }
