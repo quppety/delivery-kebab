@@ -1,16 +1,27 @@
-const React = require('react');
 const cabinetRoute = require('express').Router();
+const React = require('react');
 const renderTemplate = require('../lib/renderTemplate');
 
-const { Order, Client } = require('../../db/models');
+const { Order, Client, Offer } = require('../../db/models');
 const Cabinet = require('../views/cabinet/Cabinet');
 const Purchased = require('../views/cabinet/Purchased');
 
 module.exports = cabinetRoute
-  .get('/:id/cabinet', (req, res) => {
+  .get('/:id/cabinet', async (req, res) => {
     try {
       const username = req.session?.user;
-      renderTemplate(Cabinet, { username }, res);
+      const currClient = await Client.findOne({
+        where: { username: username.username },
+        raw: true,
+      });
+      const orders = await Order.findAll({
+        where: { client_id: currClient.id },
+        include: [Offer],
+        raw: true,
+        nest: true,
+      });
+      console.log(orders);
+      renderTemplate(Cabinet, { username, orders }, res);
     } catch (error) {
       res.sendStatus(500).json(error);
     }
@@ -22,10 +33,8 @@ module.exports = cabinetRoute
       // Save the form data to the database
       const user = await Client.findOne({ where: { id } });
       if (user) {
-
         await Client.update({ phone, address }, { where: { id: user.id } });
         res.sendStatus(200);
-
       } else {
         res.sendStatus(404);
       }

@@ -8,8 +8,9 @@ const FileStore = require('session-file-store')(expressSession);
 
 const viewsRouter = require('./routes/views');
 const courierRouter = require('./routes/courier');
+const orderRouter = require('./routes/order');
 const clientRouter = require('./routes/client');
-const clientCabinetRouter = require('./routes/cabinet.router');
+const cabinetRouter = require('./routes/cabinet.router');
 const indexRouter = require('./routes/index');
 
 const app = express();
@@ -26,9 +27,6 @@ const sessionConfig = {
   },
 };
 
-const { sequelize } = require('../db/models');
-const cabinetRouter = require('./routes/cabinet.router');
-
 app.use(morgan('dev'));
 app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +36,7 @@ app.use(expressSession(sessionConfig));
 app.use('/clients', clientRouter);
 app.use('/clients', cabinetRouter);
 app.use('/couriers', courierRouter);
+app.use('/', orderRouter);
 app.use('/', viewsRouter);
 app.use('/', indexRouter);
 
