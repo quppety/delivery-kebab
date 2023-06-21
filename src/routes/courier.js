@@ -96,21 +96,34 @@ router.post('/new-order', async (req, res) => {
   }
 });
 
-router.patch('/orders', async (req, res) => {
+router.patch('/orders/:id', async (req, res) => {
   //   const username = req.session?.username;
-  const id = Number(req.body.id);
-  console.log('-----------------', id);
+  const { id } = req.params;
   try {
     const currOffer = await Offer.findOne({
       where: { id }, // ?
       raw: true,
     });
-    console.log('что возвращает поиск', currOffer);
     const updOrder = await Offer.update(
       { status: 'Доставлен' },
       { where: { id } },
     );
     if (updOrder) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete('/orders/:id', async (req, res) => {
+  //   const username = req.session?.username;
+  const { id } = req.params;
+  try {
+    const delOrder = await Offer.destroy({ where: { id } });
+    if (delOrder) {
       res.sendStatus(200);
     } else {
       res.sendStatus(400);
