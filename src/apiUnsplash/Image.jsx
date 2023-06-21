@@ -1,5 +1,5 @@
-const React = require('react');
+// const React = require('react');
 
-module.exports = function Image() {
-  return <h2>Single Image</h2>;
-};
+// module.exports = function Image() {
+//   return <h2>Single Image</h2>;
+// };
