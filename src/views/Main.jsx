@@ -56,7 +56,9 @@ module.exports = function Main({ user, offers }) {
           ))}
         </div>
       ) : (
-        <h3>Сейчас нет актуальных предложений, зайдите позже</h3>
+        <h3 className="flex justify-center m-auto text-m font-medium leading-6 mb-10 text-gray-900">
+          Сейчас нет актуальных предложений, зайдите позже
+        </h3>
       )}
     </Layout>
   );

@@ -32,7 +32,7 @@ loginForm.addEventListener('submit', async (e) => {
       error.textContent = 'Неверный пароль или email';
     }
   } else if (response.ok) {
-    window.location.href = 'http://localhost:3000/';
+    window.location.href = 'http://localhost:3000/'; // ! редирект на форму заполнения тлф/адреса
   } else {
     error.textContent = 'Неверный пароль или email';
   }
