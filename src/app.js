@@ -22,16 +22,27 @@ const sessionConfig = {
     httpOnly: true,
   },
 };
+const clientRouter = require('./routes/client');
+const courierRouter = require('./routes/courier');
+const indexRouter = require('./routes/index');
 
+const { sequelize } = require('../db/models');
 app.use(morgan('dev'));
 app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(expressSession(sessionConfig));
 
+app.use('/client', clientRouter);
+app.use('/courier', courierRouter);
+app.use('/', indexRouter);
+
+// app.get('/', (req, res) => {
+//   res.send('Привет');
+// });
 app.use('/', viewsRouter);
 app.use('/', courierRouter);
 
-app.listen(PORT, () => {
-  `Server started on port ${PORT}`;
+app.listen(PORT, async () => {
+  console.log(`Server started on port ${PORT}`);
 });
