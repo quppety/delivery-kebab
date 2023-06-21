@@ -18,7 +18,7 @@ module.exports = cabinetRoute
       const user = await User.findOne({ where: { id } });
       if (user) {
         const order = await Order.create({ username, phone, address });
-        res.status(200).json(order);
+        res.status(200).json(order); // поменять нв то чтобы высвеячивадллось окошкаом
       } else {
         res.status(404).json({ message: 'User not found' });
       }
