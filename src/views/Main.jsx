@@ -13,7 +13,10 @@ module.exports = function Main({ user, offers }) {
       {offers.length > 0 ? (
         <div className="flex" id="container">
           {offers.map((offer) => (
-            <div className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="box max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div className="ribbon ribbon-top-right">
+                <span>-50%</span>
+              </div>
               <a href="#">
                 <img
                   className="rounded-t-lg"
