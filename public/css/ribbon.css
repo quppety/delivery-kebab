@@ -22,7 +22,7 @@
   position: absolute;
   display: block;
   width: 225px;
-  padding: 15px 0;
+  padding: 10px 0;
   background-color: #ff0000;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   color: #fff;
@@ -43,12 +43,12 @@
   border-right-color: transparent;
 }
 .ribbon-top-right::before {
-  top: 0;
-  left: 0;
+  top: 15px;
+  left: 15px;
 }
 .ribbon-top-right::after {
-  bottom: 0;
-  right: 0;
+  bottom: 15px;
+  right: 15px;
 }
 .ribbon-top-right span {
   left: -25px;
