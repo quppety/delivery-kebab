@@ -24,6 +24,9 @@ module.exports = function CourierOrders(props) {
                 Номер заказа
               </th>
               <th scope="col" className="px-6 py-3">
+                Номер заказа
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Телефон клиента
               </th>
               <th scope="col" className="px-6 py-3">
@@ -40,6 +43,7 @@ module.exports = function CourierOrders(props) {
               <div>
                 <tr className="px-24 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td className="w-32 p-4">{offer.id}</td>
+                  <td className="w-32 p-4">{offer.name}</td>
                   <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                     {offer.Orders.Client.phone}
                   </td>

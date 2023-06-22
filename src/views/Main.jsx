@@ -2,38 +2,34 @@ const React = require('react');
 const Layout = require('./Layout');
 
 module.exports = function Main({ user, offers }) {
-  // console.log(
-  //   // '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
-  //   // user.address,
-  // );
   return (
     <Layout user={user}>
-
       {user && user.address !== null ? (
         <div id="page">
           <div id="container">
-            <div id="ring"></div>
-            <div id="ring"></div>
-            <div id="ring"></div>
-            <div id="ring"></div>
+            <div id="ring" />
+            <div id="ring" />
+            <div id="ring" />
+            <div id="ring" />
             <div id="h3">loading</div>
           </div>
         </div>
       ) : offers.length > 0 ? (
-        <div className="flex" id="container">
+        <div
+          className="flex flex-wrap justify-center mx-auto w-3/5 px-15"
+          id="container"
+        >
           {offers.map((offer) => (
             <div
-              className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className="max-w-64 max-h-80 m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               key={offer.id}
             >
+              <img
+                className="rounded-t-lg w-full"
+                src={offer.image}
+                alt="здесь будет картинка"
+              />
 
-              <a href="#">
-                <img
-                  className="rounded-t-lg"
-                  src={offer.image} //! здесь добавила
-                  alt="здесь будет картинка"
-                />
-              </a>
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

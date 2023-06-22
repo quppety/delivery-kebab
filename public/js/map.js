@@ -53,13 +53,12 @@ async function init() {
     if (adressProduct.length > 0) {
       container.innerHTML = adressProduct
         .map(
-          (el) =>
-            `<div className="flex" >
+          (el) => `<div className="flex" >
           <div class="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
               <img
                 class="rounded-t-lg"
-                src=""
+                src=${el.image}
                 alt="здесь будет картинка"
               />
             </a>
@@ -100,7 +99,6 @@ async function init() {
           Сейчас нет актуальных предложений, зайдите позже
         </h3>`;
     }
-
   }
   const getOfferBtns = document.querySelectorAll('#get-offer-btn');
   getOfferBtns?.forEach((getOfferBtn) => {

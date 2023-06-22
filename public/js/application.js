@@ -6,6 +6,7 @@ const getOfferBtns = document.querySelectorAll('#get-offer-btn');
 addOrderForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
+  console.log(Object.fromEntries(data));
   try {
     const response = await fetch('/couriers/new-order', {
       method: 'POST',
