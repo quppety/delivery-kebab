@@ -58,6 +58,7 @@ getOfferBtns?.forEach((getOfferBtn) => {
   getOfferBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
     const { offerId } = getOfferBtn.dataset;
+    console.log(offerId);
     try {
       const response = await fetch(`/get-offer/${offerId}`, {
         method: 'POST',
@@ -83,6 +84,7 @@ getOfferBtns?.forEach((getOfferBtn) => {
 delOfferBtns?.forEach((delOfferBtn) => {
   delOfferBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
+
     const { offerId } = delOfferBtn.dataset;
     try {
       const response = await fetch(`/couriers/orders/${offerId}`, {

@@ -34,6 +34,9 @@ module.exports = cabinetRoute
       const user = await Client.findOne({ where: { id } });
       if (user) {
         await Client.update({ phone, address }, { where: { id: user.id } });
+        req.session.user.phone = phone;
+        req.session.user.address = address;
+
         res.sendStatus(200);
       } else {
         res.sendStatus(404);
