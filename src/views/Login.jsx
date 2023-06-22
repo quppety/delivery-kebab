@@ -74,7 +74,7 @@ function Login() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Нет учетной записи?{' '}
             <a
-              href="/client/register/"
+              href="/clients/register/"
               className="font-semibold leading-6 text-green-600 hover:text-green-500"
             >
               Зарегистрируйтесь

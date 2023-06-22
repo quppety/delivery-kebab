@@ -48,14 +48,87 @@ async function init() {
 
     adressProduct.sort((a, b) => a.distance - b.distance);
 
-    adressProduct.map(async (el) => {
-      const container = await document.getElementById(`distance-${el.id}`);
-      container.innerHTML = `<p>Расстояние: ${Math.round(
-        el.distance,
-      )} метров</p>`;
-      return container;
-    });
+    // const container = await document.getElementById(`page-${el.id}`);
+    const container = document.querySelector('#page');
+    if (adressProduct.length > 0) {
+      container.innerHTML = adressProduct
+        .map(
+          (el) =>
+            `<div className="flex" >
+          <div class="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <img
+                class="rounded-t-lg"
+                src=""
+                alt="здесь будет картинка"
+              />
+            </a>
+            <div class="p-5">
+              <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  ${el.name}
+                </h5>
+              </a>
+              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                Цена со скидкой: ${el.price / 2}
+              </p>
+              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                Изначальная цена: ${el.price}
+              </p>
+              <p>Расстояние: ${Math.round(el.distance)} метров</p>
+              <button
+                id="get-offer-btn"
+                data-offer-id=${el.id}
+                class="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              >
+                Выкупить
+              </button>
+              <a
+                href="#"
+                class="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              >
+                Подробнее
+              </a>
+            </div>
+          </div>
+        </div>`,
+        )
+        .join('');
+    } else {
+      container.innerHTML = `
+        <h3 class="flex justify-center m-auto text-m font-medium leading-6 mb-10 text-gray-900">
+          Сейчас нет актуальных предложений, зайдите позже
+        </h3>`;
+    }
+
   }
+  const getOfferBtns = document.querySelectorAll('#get-offer-btn');
+  getOfferBtns?.forEach((getOfferBtn) => {
+    getOfferBtn?.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const { offerId } = getOfferBtn.dataset;
+      console.log(offerId);
+      try {
+        const response = await fetch(`/get-offer/${offerId}`, {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          credentials: 'include',
+        });
+        if (response.status === 200) {
+          getOfferBtn.innerText = 'Выкуплен!';
+        } else {
+          const warning = document.createElement('p');
+          warning.innerText = 'Что-то пошло не так, попробуйте заказать позже';
+          getOfferBtn.parentNode.parentNode.prepend(warning);
+          setTimeout(() => {
+            warning.remove();
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
 }
 
 ymaps.ready(init);
