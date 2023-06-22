@@ -83,6 +83,10 @@ module.exports = function Registr() {
                 Я курьер
               </label>
             </div>
+            <div
+              id="error"
+              className="block my-2 text-sm font-medium leading-6 text-red-500"
+            />
             <div>
               <button
                 type="submit"

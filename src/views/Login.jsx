@@ -57,7 +57,10 @@ function Login() {
                 />
               </div>
             </div>
-
+            <div
+              id="error"
+              className="block text-sm font-medium leading-6 text-red-500"
+            />
             <div>
               <button
                 type="submit"
