@@ -1,43 +1,9 @@
 const React = require('react');
-const ReactDOMServer = require('react-dom');
 const Layout = require('../Layout');
 
 // const GetImages = require('../../apiUnsplash/GetImages');
 
 module.exports = function Cabinet({ username, orders, currClient }) {
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const form = event.target;
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(`/clients/${username.id}/cabinet`, {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(formData)),
-        credentials: 'include',
-      });
-
-      if (response.status === 200) {
-        // ! не prepend'ит - просто выводит OK
-        const approve = document.createElement('p');
-        approve.innerText = 'Данные успешно добавлены';
-        event.target.prepend(approve);
-        // const data = await response.json();
-        // console.log('Form data submitted successfully:', data);
-      } else {
-        const fail = document.createElement('p');
-        fail.innerText = 'Не удалось обновить данные';
-        event.target.prepend(fail);
-        // const error = await response.json();
-        // console.error('Failed to submit form data:', error);
-      }
-    } catch (error) {
-      console.error('An error occurred while submitting the form:', error);
-    }
-  };
-
   return (
     <Layout user={username}>
       <div>
@@ -49,7 +15,6 @@ module.exports = function Cabinet({ username, orders, currClient }) {
             id="client-info-form"
             method="POST"
             action={`/clients/${username.id}/cabinet`}
-            onSubmit={handleSubmit}
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             <div>
@@ -150,57 +115,3 @@ module.exports = function Cabinet({ username, orders, currClient }) {
     </Layout>
   );
 };
-
-// <form
-//   id="myForm"
-//   method="POST"
-//   action={`/clients/${username.id}/cabinet`}
-//   style={{ color: 'red' }}
-//   onSubmit={handleSubmit}
-// >
-//   <label>
-//     Name:
-//     <input
-//       id="name"
-//       name="name"
-//       type="text"
-//       placeholder="как тебя зовут?"
-//     />
-//   </label>
-//   <label>
-//     Phone number:
-//     <input
-//       id="phone"
-//       name="phone"
-//       type="text"
-//       placeholder="укажи номер своего телефона"
-//     />
-//   </label>
-//   <label>
-//     Address:
-//     <input
-//       id="address"
-//       name="address"
-//       type="text"
-//       placeholder="по какому адресу везти подпитку?"
-//     />
-//   </label>
-//   <button type="submit">Сохранить</button>
-
-//   <div className="container" name="my_purchases">
-//     <h3>Мои заказы</h3>
-//     <div className="delivery_number">
-//       <span>Status</span>
-//       <button type="button">Отмена</button>
-//     </div>
-//   </div>
-
-//   <button
-//     id="purchased"
-//     type="submit"
-//     method="POST"
-//     action={`/clients/${username.id}/valid`}
-//   >
-//     Оплатить
-//   </button>
-// </form>
