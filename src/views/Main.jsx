@@ -8,6 +8,7 @@ module.exports = function Main({ user, offers }) {
   // );
   return (
     <Layout user={user}>
+
       {user && user.address !== null ? (
         <div id="page">
           <div id="container">
@@ -25,10 +26,11 @@ module.exports = function Main({ user, offers }) {
               className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               key={offer.id}
             >
+
               <a href="#">
                 <img
                   className="rounded-t-lg"
-                  src=""
+                  src={offer.image} //! здесь добавила
                   alt="здесь будет картинка"
                 />
               </a>

@@ -2,11 +2,9 @@ const React = require('react');
 const ReactDOMServer = require('react-dom');
 const Layout = require('../Layout');
 
-
 // const GetImages = require('../../apiUnsplash/GetImages');
 
-module.exports = function Cabinet({ username, orders }) {
-
+module.exports = function Cabinet({ username, orders, currClient }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -61,6 +59,7 @@ module.exports = function Cabinet({ username, orders }) {
                   type="text"
                   name="phone"
                   id="phone"
+                  defaultValue={currClient.phone}
                   required
                   className="block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
@@ -76,11 +75,16 @@ module.exports = function Cabinet({ username, orders }) {
                   Адрес доставки
                 </label>
               </div>
+              <p className="block text-sm font-medium leading-6 text-gray-500">
+                Введите адрес в формате <br />
+                "Москва, улица Маросейка 3/13"
+              </p>
               <div className="mt-2 mb-4">
                 <input
                   type="text"
                   name="address"
                   id="address"
+                  defaultValue={currClient.address}
                   required
                   className="block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                 />
@@ -102,37 +106,45 @@ module.exports = function Cabinet({ username, orders }) {
           <p className="block text-center text-m font-medium leading-6 mb-10 text-gray-900">
             Ваши заказы
           </p>
-          {orders.map((order) => (
-            <a
-              href="#"
-              className="flex flex-col my-5 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-            >
-              <img
-                className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                src=""
-                alt="здесь будет картинка"
-              />
-              <div className="flex flex-col justify-between p-4 leading-normal">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {order.Offer.name}
-                </h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  Цена: {order.Offer.price}
-                </p>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  Вы заплатили: {order.Offer.price / 2}
-                </p>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  Статус:{' '}
-                  {order.Offer.status === 'Заказан' ? (
-                    <>В пути </>
-                  ) : (
-                    <>{order.Offer.status}</>
-                  )}
-                </p>
-              </div>
-            </a>
-          ))}
+          {orders.length > 0 ? (
+            <>
+              {orders.map((order) => (
+                <a
+                  href="#"
+                  className="flex flex-col my-5 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                >
+                  <img
+                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    src={order.Offer.image}
+                    alt="здесь будет картинка"
+                  />
+                  <div className="flex flex-col justify-between p-4 leading-normal">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      {order.Offer.name}
+                    </h5>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                      Цена: {order.Offer.price}
+                    </p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                      Вы заплатили: {order.Offer.price / 2}
+                    </p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                      Статус:{' '}
+                      {order.Offer.status === 'Заказан' ? (
+                        <>В пути </>
+                      ) : (
+                        <>{order.Offer.status}</>
+                      )}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </>
+          ) : (
+            <h3 className="flex justify-center m-auto text-m font-medium leading-6 mb-10 text-gray-900">
+              Пока что у вас нет заказов
+            </h3>
+          )}
         </div>
       </div>
     </Layout>

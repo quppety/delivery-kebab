@@ -69,27 +69,73 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/new-order', async (req, res) => {
-  const { name, price, address, image } = req.body;
+  const { name, price, address } = req.body;
   const username = req.session?.user?.couriername;
+
   try {
     const courierData = await Courier.findOne({
       where: { couriername: username },
       raw: true,
     });
+
+    let image;
+    switch (name) {
+      case 'Ассорти бургеров':
+        image = '/img/img-deliver/assort_burg.jpeg';
+        break;
+      case 'Черный бургер':
+        image = '/img/img-deliver/black_burg.jpeg';
+        break;
+      case 'Бургер с картошкой':
+        image = '/img/img-deliver/burg_chrisps.jpeg';
+        break;
+      case 'Бургер с нагетсами':
+        image = '/img/img-deliver/burg_nugg.jpeg';
+        break;
+      case 'Калифорния суши':
+        image = '/img/img-deliver/california_sushi.jpeg';
+        break;
+      case 'Чизбургер':
+        image = '/img/img-deliver/chees_burg.jpeg';
+        break;
+      case 'Твистер куриный':
+        image = '/img/img-deliver/chick_twist.jpeg';
+        break;
+      case 'Набор для влюбленных':
+        image = '/img/img-deliver/first_night-sushi.jpeg';
+        break;
+      case 'Классический бургер':
+        image = '/img/img-deliver/One_burg.jpeg';
+        break;
+      case 'Набор для большой компании':
+        image = '/img/img-deliver/sushi_party.jpeg';
+        break;
+      case 'Набор для двоих':
+        image = '/img/img-deliver/sushi_romance.jpeg';
+        break;
+      case 'Дракон':
+        image = '/img/img-deliver/sushi-dragon.jpeg';
+        break;
+      default:
+        image = 'Такого товара не существует';
+        break;
+    }
+
     const order = await Offer.create({
       name,
       price,
-      image: 'none', //! type: 'string violation',
+      image,
       courier_id: courierData.id,
       curr_location: address,
       status: 'Размещен',
     });
-    console.log('новый заказ---------------', order);
+
     if (order) {
       res.sendStatus(200);
     } else {
       res.sendStatus(400);
     }
+
     res.end();
   } catch (error) {
     console.log(error);
