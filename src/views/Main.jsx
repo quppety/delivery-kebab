@@ -6,7 +6,7 @@ module.exports = function Main({ user, offers }) {
     <Layout user={user}>
       {offers.length > 0 ? (
         <div className="flex" id="container">
-          {offers.map((product) => (
+          {offers.map((offer) => (
             <div className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
                 <img
@@ -18,14 +18,14 @@ module.exports = function Main({ user, offers }) {
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {product.name}
+                    {offer.name}
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  Цена со скидкой: {product.price / 2}
+                  Изначальная цена: {offer.price} руб.
                 </p>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  Изначальная цена: {product.price}
+                  Цена со скидкой: {offer.price / 2} руб.
                 </p>
                 {user ? (
                   <>
@@ -58,8 +58,8 @@ module.exports = function Main({ user, offers }) {
       ) : (
         <h3>Сейчас нет актуальных предложений, зайдите позже</h3>
       )}
-      <div id="map-test" class="map"></div>
-      <script src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU"></script>
+      <div id="map-test" className="map" />
+      <script src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU" />
       <script src="/js/map.js" />
     </Layout>
   );
