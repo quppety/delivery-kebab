@@ -75,6 +75,33 @@ module.exports = function Profile(props) {
               />
             </div>
           </div>
+          <div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="order-address"
+                className="block text-sm mb-4 font-medium leading-6 text-gray-900"
+              >
+                Состав заказа *
+              </label>
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                id="choose-drink-btn"
+                type="submit"
+                className="flex w-1/3 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+              >
+                Напитки
+              </button>
+
+              <button
+                id="choose-food-btn"
+                type="submit"
+                className="flex w-1/3 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+              >
+                Еда
+              </button>
+            </div>
+          </div>
 
           {/* <div>
             <div className="flex items-center justify-between">

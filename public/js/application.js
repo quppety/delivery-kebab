@@ -105,3 +105,34 @@ delOfferBtns?.forEach((delOfferBtn) => {
     }
   });
 });
+
+const clientInfoForm = document.querySelector('#client-info-form');
+
+clientInfoForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id = String(window.location.href).split('/')[4];
+  const formData = new FormData(e.target);
+  try {
+    const response = await fetch(`/clients/${id}/cabinet`, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(formData)),
+      credentials: 'include',
+    });
+
+    if (response.status === 200) {
+      const approve = document.createElement('p');
+      approve.innerText = 'Данные успешно добавлены';
+      approve.classList =
+        'block text-sm mb-4 font-medium leading-6 text-gray-900';
+      e.target.prepend(approve);
+    } else {
+      const fail = document.createElement('p');
+      fail.classList = 'block text-sm font-medium leading-6 text-gray-900';
+      fail.innerText = 'Не удалось обновить данные';
+      e.target.prepend(fail);
+    }
+  } catch (error) {
+    console.error('An error occurred while submitting the form:', error);
+  }
+});

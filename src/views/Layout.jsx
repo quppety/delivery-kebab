@@ -126,7 +126,7 @@ module.exports = function Layout(props) {
           crossOrigin="anonymous"
         />
       </body>
-      <script defer src="/js/application.js" />
+      <script src="/js/application.js" />
     </html>
   );
 };
