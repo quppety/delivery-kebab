@@ -21,7 +21,7 @@ module.exports = cabinetRoute
         nest: true,
       });
       console.log(orders);
-      renderTemplate(Cabinet, { username, orders }, res);
+      renderTemplate(Cabinet, { username, orders, currClient }, res);
     } catch (error) {
       res.sendStatus(500).json(error);
     }

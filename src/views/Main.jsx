@@ -4,14 +4,23 @@ const Layout = require('./Layout');
 module.exports = function Main({ user, offers }) {
   return (
     <Layout user={user}>
+      {/* {
+            user.address
+            ? (<>спиннер ожидания</>) :
+            (
+              весь код offers length и ниже
+            )} */}
       {offers.length > 0 ? (
         <div className="flex" id="container">
           {offers.map((offer) => (
-            <div className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="box max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div className="ribbon ribbon-top-right">
+                <span>-50%</span>
+              </div>
               <a href="#">
                 <img
                   className="rounded-t-lg"
-                  src=""
+                  src={offer.image} //! здесь добавила
                   alt="здесь будет картинка"
                 />
               </a>
@@ -27,6 +36,7 @@ module.exports = function Main({ user, offers }) {
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   Цена со скидкой: {offer.price / 2} руб.
                 </p>
+                <div id={`distance-${offer.id}`} />
                 {user ? (
                   <>
                     <a
@@ -59,8 +69,11 @@ module.exports = function Main({ user, offers }) {
         <h3>Сейчас нет актуальных предложений, зайдите позже</h3>
       )}
       <div id="map-test" className="map" />
-      <script src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU" />
-      <script src="/js/map.js" />
+      <script
+        defer
+        src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU"
+      />
+      <script defer src="/js/map.js" />
     </Layout>
   );
 };
