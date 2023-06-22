@@ -2,21 +2,31 @@ const React = require('react');
 const Layout = require('./Layout');
 
 module.exports = function Main({ user, offers }) {
+  // console.log(
+  //   // '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+  //   // user.address,
+  // );
   return (
     <Layout user={user}>
-      {/* {
-            user.address
-            ? (<>спиннер ожидания</>) :
-            (
-              весь код offers length и ниже
-            )} */}
-      {offers.length > 0 ? (
+
+      {user && user.address !== null ? (
+        <div id="page">
+          <div id="container">
+            <div id="ring"></div>
+            <div id="ring"></div>
+            <div id="ring"></div>
+            <div id="ring"></div>
+            <div id="h3">loading</div>
+          </div>
+        </div>
+      ) : offers.length > 0 ? (
         <div className="flex" id="container">
           {offers.map((offer) => (
-            <div className="box max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <div className="ribbon ribbon-top-right">
-                <span>-50%</span>
-              </div>
+            <div
+              className="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              key={offer.id}
+            >
+
               <a href="#">
                 <img
                   className="rounded-t-lg"

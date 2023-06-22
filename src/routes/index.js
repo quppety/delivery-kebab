@@ -18,7 +18,10 @@ router.get('/map', async (req, res) => {
   // const couriername = req.session?.user?.couriername;
   if (username) {
     const addressClient = await Client.findOne({ where: { id: username.id } });
-    const addressCourier = await Offer.findAll();
+    const addressCourier = await Offer.findAll({
+      order: [['id', 'ASC']],
+      where: { status: 'Размещен' },
+    });
     console.log(addressCourier);
     res.send([addressClient, addressCourier]);
   }
