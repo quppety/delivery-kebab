@@ -115,7 +115,7 @@ module.exports = function Cabinet({ username, orders, currClient }) {
                 >
                   <img
                     className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                    src=""
+                    src={order.Offer.image}
                     alt="здесь будет картинка"
                   />
                   <div className="flex flex-col justify-between p-4 leading-normal">

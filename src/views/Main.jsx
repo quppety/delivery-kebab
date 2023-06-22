@@ -20,7 +20,7 @@ module.exports = function Main({ user, offers }) {
               <a href="#">
                 <img
                   className="rounded-t-lg"
-                  src=""
+                  src={offer.image} //! здесь добавила
                   alt="здесь будет картинка"
                 />
               </a>
