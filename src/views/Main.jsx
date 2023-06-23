@@ -7,7 +7,7 @@ module.exports = function Main({ user, offers }) {
     <Layout user={user}>
       {user && user.address !== null ? (
         <div id="page">
-          <div id="container">
+          <div id="container-spinner">
             <div id="ring" />
             <div id="ring" />
             <div id="ring" />

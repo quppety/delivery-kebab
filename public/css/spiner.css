@@ -4,12 +4,13 @@
   align-items: center;
 }
 
-#container {
+#container-spinner {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 100vh;
+  /* height: 100vh; */
+  margin-top: 300px;
 }
 
 #h3 {
