@@ -2,11 +2,11 @@ const addOrderForm = document.querySelector('#add-order-form');
 const closeOrderBtns = document.querySelectorAll('#close-order');
 const delOfferBtns = document.querySelectorAll('#delete-offer');
 const getOfferBtns = document.querySelectorAll('#get-offer-btn');
+const clientInfoForm = document.querySelector('#client-info-form');
 
 addOrderForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
-  console.log(Object.fromEntries(data));
   try {
     const response = await fetch('/couriers/new-order', {
       method: 'POST',
@@ -18,7 +18,8 @@ addOrderForm?.addEventListener('submit', async (e) => {
       window.location.href = '/couriers/orders';
     } else {
       const warning = document.createElement('p');
-      warning.innerText = 'Something went wrong, try again later';
+      warning.innerText =
+        'Что-то пошло не так, попробуйте добавить заказ позже';
       addOrderForm.prepend(warning);
       setTimeout(() => {
         warning.remove();
@@ -43,7 +44,8 @@ closeOrderBtns?.forEach((closeOrderBtn) => {
         currStatus.innerText = 'Доставлен';
       } else {
         const warning = document.createElement('p');
-        warning.innerText = 'Something went wrong, try again later';
+        warning.innerText =
+          'Что-то пошло не так, попробуйте закрыть заказ позже';
         closeOrderBtn.parentNode.parentNode.prepend(warning);
         setTimeout(() => {
           warning.remove();
@@ -59,22 +61,32 @@ getOfferBtns?.forEach((getOfferBtn) => {
   getOfferBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
     const { offerId } = getOfferBtn.dataset;
-    console.log(offerId);
     try {
       const response = await fetch(`/get-offer/${offerId}`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         credentials: 'include',
       });
-      if (response.status === 200) {
-        getOfferBtn.innerText = 'Выкуплен!';
-      } else {
+
+      const re = await response.json();
+
+      if (re.id) {
+        const err = document.createElement('p');
+        err.innerText = 'Чтобы выкупить заказ, добавьте адрес и телефон';
+        err.classList = 'block text-sm font-medium leading-6 text-gray-900';
+        getOfferBtn.parentNode.parentNode.parentNode.parentNode.append(err);
+        setTimeout(() => {
+          window.location.href = `/clients/${re.id}/cabinet`; // ! id
+        }, 2000);
+      } else if (response.status === 400) {
         const warning = document.createElement('p');
         warning.innerText = 'Что-то пошло не так, попробуйте заказать позже';
         getOfferBtn.parentNode.parentNode.prepend(warning);
         setTimeout(() => {
           warning.remove();
         }, 2000);
+      } else if (re && response.status === 200) {
+        getOfferBtn.innerText = 'Выкуплен!';
       }
     } catch (error) {
       console.log(error);
@@ -85,7 +97,6 @@ getOfferBtns?.forEach((getOfferBtn) => {
 delOfferBtns?.forEach((delOfferBtn) => {
   delOfferBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
-
     const { offerId } = delOfferBtn.dataset;
     try {
       const response = await fetch(`/couriers/orders/${offerId}`, {
@@ -96,7 +107,8 @@ delOfferBtns?.forEach((delOfferBtn) => {
         delOfferBtn.parentNode.parentNode.remove();
       } else {
         const warning = document.createElement('p');
-        warning.innerText = 'Something went wrong, try again later';
+        warning.innerText =
+          'Что-то пошло не так, попробуйте удалить заказ позже';
         delOfferBtn.parentNode.parentNode.prepend(warning);
         setTimeout(() => {
           warning.remove();
@@ -107,8 +119,6 @@ delOfferBtns?.forEach((delOfferBtn) => {
     }
   });
 });
-
-const clientInfoForm = document.querySelector('#client-info-form');
 
 clientInfoForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
