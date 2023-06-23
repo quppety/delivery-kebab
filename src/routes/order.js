@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
 
-const renderTemplate = require('../lib/renderTemplate');
+const isAuth = require('../middleware/isAuth');
 
 const { Order, Client, Offer } = require('../../db/models');
 
-router.post('/get-offer/:id', async (req, res) => {
+router.post('/get-offer/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   const username = req.session?.user?.username;
   try {
