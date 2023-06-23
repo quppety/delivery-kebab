@@ -71,6 +71,7 @@ router.get('/logout', (req, res) => {
 router.post('/new-order', async (req, res) => {
   const { name, price, address } = req.body;
   const username = req.session?.user?.couriername;
+  let rusName;
 
   try {
     const courierData = await Courier.findOne({
@@ -80,40 +81,52 @@ router.post('/new-order', async (req, res) => {
 
     let image;
     switch (name) {
-      case 'Ассорти бургеров':
+      case 'burger-assort':
+        rusName = 'Ассорти бургеров';
         image = '/img/img-deliver/assort_burg.jpeg';
         break;
-      case 'Черный бургер':
+      case 'black-burger':
+        rusName = 'Черный бургер';
         image = '/img/img-deliver/black_burg.jpeg';
         break;
-      case 'Бургер с картошкой':
+      case 'burger-fries':
+        rusName = 'Бургер с картошкой';
         image = '/img/img-deliver/burg_chrisps.jpeg';
         break;
-      case 'Бургер с нагетсами':
+      case 'burger-nuggets':
+        rusName = 'Бургер с нагетсами';
         image = '/img/img-deliver/burg_nugg.jpeg';
         break;
-      case 'Калифорния суши':
+      case 'california-sushi':
+        rusName = 'Калифорния суши';
         image = '/img/img-deliver/california_sushi.jpeg';
         break;
-      case 'Чизбургер':
+      case 'cheeseburger':
+        rusName = 'Чизбургер';
         image = '/img/img-deliver/chees_burg.jpeg';
         break;
-      case 'Твистер куриный':
+      case 'twister-chicken':
+        rusName = 'Твистер куриный';
         image = '/img/img-deliver/chick_twist.jpeg';
         break;
-      case 'Набор для влюбленных':
+      case 'lovers':
+        rusName = 'Набор для влюбленных';
         image = '/img/img-deliver/first_night-sushi.jpeg';
         break;
-      case 'Классический бургер':
+      case 'classic-burger':
+        rusName = 'Классический бургер';
         image = '/img/img-deliver/One_burg.jpeg';
         break;
-      case 'Набор для большой компании':
+      case 'team':
+        rusName = 'Набор для компании';
         image = '/img/img-deliver/sushi_party.jpeg';
         break;
-      case 'Набор для двоих':
+      case 'two':
+        rusName = 'Набор для двоих';
         image = '/img/img-deliver/sushi_romance.jpeg';
         break;
-      case 'Дракон':
+      case 'dragon':
+        rusName = 'Дракон';
         image = '/img/img-deliver/sushi-dragon.jpeg';
         break;
       default:
@@ -122,7 +135,7 @@ router.post('/new-order', async (req, res) => {
     }
 
     const order = await Offer.create({
-      name,
+      name: rusName,
       price,
       image,
       courier_id: courierData.id,

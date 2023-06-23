@@ -1,43 +1,9 @@
 const React = require('react');
-const ReactDOMServer = require('react-dom');
 const Layout = require('../Layout');
 
 // const GetImages = require('../../apiUnsplash/GetImages');
 
 module.exports = function Cabinet({ username, orders, currClient }) {
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const form = event.target;
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(`/clients/${username.id}/cabinet`, {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(formData)),
-        credentials: 'include',
-      });
-
-      if (response.status === 200) {
-        // ! не prepend'ит - просто выводит OK
-        const approve = document.createElement('p');
-        approve.innerText = 'Данные успешно добавлены';
-        event.target.prepend(approve);
-        // const data = await response.json();
-        // console.log('Form data submitted successfully:', data);
-      } else {
-        const fail = document.createElement('p');
-        fail.innerText = 'Не удалось обновить данные';
-        event.target.prepend(fail);
-        // const error = await response.json();
-        // console.error('Failed to submit form data:', error);
-      }
-    } catch (error) {
-      console.error('An error occurred while submitting the form:', error);
-    }
-  };
-
   return (
     <Layout user={username}>
       <div>
@@ -49,10 +15,9 @@ module.exports = function Cabinet({ username, orders, currClient }) {
             id="client-info-form"
             method="POST"
             action={`/clients/${username.id}/cabinet`}
-            onSubmit={handleSubmit}
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            <div>
+            <div className="my-4">
               <label htmlFor="phone">Номер телефона</label>
               <div className="my-2">
                 <input
@@ -66,7 +31,7 @@ module.exports = function Cabinet({ username, orders, currClient }) {
               </div>
             </div>
 
-            <div>
+            <div className="my-4">
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
@@ -91,7 +56,7 @@ module.exports = function Cabinet({ username, orders, currClient }) {
               </div>
             </div>
 
-            <div>
+            <div className="my-6">
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
@@ -109,26 +74,23 @@ module.exports = function Cabinet({ username, orders, currClient }) {
           {orders.length > 0 ? (
             <>
               {orders.map((order) => (
-                <a
-                  href="#"
-                  className="flex flex-col my-5 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-                >
+                <div className="flex flex-col my-5 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100">
                   <img
-                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    className="object-cover w-fit rounded-t-lg h-48 md:h-26 md:w-48 md:rounded-none md:rounded-l-lg"
                     src={order.Offer.image}
-                    alt="здесь будет картинка"
+                    alt={order.Offer.name}
                   />
                   <div className="flex flex-col justify-between p-4 leading-normal">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                       {order.Offer.name}
                     </h5>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      Цена: {order.Offer.price}
+                    <p className="mb-3 font-normal text-gray-700">
+                      Цена: {order.Offer.price} руб.
                     </p>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      Вы заплатили: {order.Offer.price / 2}
+                    <p className="mb-3 font-normal text-gray-700">
+                      Вы заплатили: {order.Offer.price / 2} руб.
                     </p>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    <p className="mb-3 font-normal text-gray-700">
                       Статус:{' '}
                       {order.Offer.status === 'Заказан' ? (
                         <>В пути </>
@@ -137,7 +99,7 @@ module.exports = function Cabinet({ username, orders, currClient }) {
                       )}
                     </p>
                   </div>
-                </a>
+                </div>
               ))}
             </>
           ) : (
@@ -150,57 +112,3 @@ module.exports = function Cabinet({ username, orders, currClient }) {
     </Layout>
   );
 };
-
-// <form
-//   id="myForm"
-//   method="POST"
-//   action={`/clients/${username.id}/cabinet`}
-//   style={{ color: 'red' }}
-//   onSubmit={handleSubmit}
-// >
-//   <label>
-//     Name:
-//     <input
-//       id="name"
-//       name="name"
-//       type="text"
-//       placeholder="как тебя зовут?"
-//     />
-//   </label>
-//   <label>
-//     Phone number:
-//     <input
-//       id="phone"
-//       name="phone"
-//       type="text"
-//       placeholder="укажи номер своего телефона"
-//     />
-//   </label>
-//   <label>
-//     Address:
-//     <input
-//       id="address"
-//       name="address"
-//       type="text"
-//       placeholder="по какому адресу везти подпитку?"
-//     />
-//   </label>
-//   <button type="submit">Сохранить</button>
-
-//   <div className="container" name="my_purchases">
-//     <h3>Мои заказы</h3>
-//     <div className="delivery_number">
-//       <span>Status</span>
-//       <button type="button">Отмена</button>
-//     </div>
-//   </div>
-
-//   <button
-//     id="purchased"
-//     type="submit"
-//     method="POST"
-//     action={`/clients/${username.id}/valid`}
-//   >
-//     Оплатить
-//   </button>
-// </form>
