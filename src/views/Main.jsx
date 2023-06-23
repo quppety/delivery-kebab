@@ -7,7 +7,7 @@ module.exports = function Main({ user, offers }) {
     <Layout user={user}>
       {user && user.address !== null ? (
         <div id="page">
-          <div id="container">
+          <div id="container-spinner">
             <div id="ring" />
             <div id="ring" />
             <div id="ring" />
@@ -17,7 +17,7 @@ module.exports = function Main({ user, offers }) {
         </div>
       ) : offers.length > 0 ? (
         <div
-          className="flex flex-wrap justify-center mx-auto px-15"
+          className="flex flex-wrap justify-center mx-auto px-15 mb-10 pb-10"
           id="container"
         >
           {offers.map((offer) => (
@@ -45,7 +45,7 @@ module.exports = function Main({ user, offers }) {
                   <div id={`distance-${offer.id}`} />
                   {user ? (
                     user.couriername ? (
-                      <div></div>
+                      <div />
                     ) : (
                       <div className="flex justify-center">
                         <button

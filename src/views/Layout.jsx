@@ -14,9 +14,9 @@ module.exports = function Layout(props) {
 
         <title>Document</title>
       </head>
-      <body className="mx-5">
+      <body className="mx-5 pb-10 relative min-h-screen">
         <nav className="mb-10 bg-white border-gray-200">
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto mt-0 p-4">
             <a href="/" className="flex items-center">
               <img
                 id="logo-img"
@@ -167,8 +167,8 @@ module.exports = function Layout(props) {
         />
       </body>
       <script src="/js/application.js" />
-      <footer className="bg-white rounded-lg shadow m-4">
-        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <footer className="flex bg-white rounded-lg shadow m-4 absolute w-full bottom-0 left-0">
+        <div className="w-full mx-auto max-w-screen-xl p-4">
           <span className="text-sm text-gray-500 sm:text-center">
             ©️ 2023{' '}
             <a href="http://localhost:3000/" className="hover:underline">
@@ -176,7 +176,7 @@ module.exports = function Layout(props) {
             </a>
             . All Rights Reserved.
           </span>
-          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-green-500 sm:mt-0">
+          <ul className="block items-center mt-3 text-sm font-medium text-green-500 sm:mt-0">
             <li>
               <a
                 href="http://localhost:3000/"
