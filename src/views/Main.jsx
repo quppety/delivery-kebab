@@ -17,7 +17,7 @@ module.exports = function Main({ user, offers }) {
         </div>
       ) : offers.length > 0 ? (
         <div
-          className="flex flex-wrap justify-center mx-auto px-15"
+          className="flex flex-wrap justify-center mx-auto px-15 mb-10 pb-10"
           id="container"
         >
           {offers.map((offer) => (
@@ -44,16 +44,20 @@ module.exports = function Main({ user, offers }) {
                   </p>
                   <div id={`distance-${offer.id}`} />
                   {user ? (
-                    <div className="flex justify-center">
-                      <button
-                        type="button"
-                        id="get-offer-btn"
-                        data-offer-id={offer.id}
-                        className="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
-                      >
-                        Выкупить
-                      </button>
-                    </div>
+                    user.couriername ? (
+                      <div />
+                    ) : (
+                      <div className="flex justify-center">
+                        <button
+                          type="button"
+                          id="get-offer-btn"
+                          data-offer-id={offer.id}
+                          className="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+                        >
+                          Выкупить
+                        </button>
+                      </div>
+                    )
                   ) : (
                     <a
                       href="/clients/login"

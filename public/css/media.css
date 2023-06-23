@@ -105,6 +105,9 @@
     width: 100%;
     margin-bottom: 0.5rem;
   }
+  #order-client {
+    padding-bottom: 20px;
+  }
 }
 
 @media (max-width: 450px) {
