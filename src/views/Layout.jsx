@@ -21,7 +21,7 @@ module.exports = function Layout(props) {
               <img
                 id="logo-img"
                 src="/img/img-deliver/logo.svg"
-                className="w-7 h-7 mr-1"
+                className="max-w-16 max-h-16 mr-1"
                 alt="deliver-kebub-logo"
               />
               <span

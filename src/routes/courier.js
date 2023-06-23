@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
 const renderTemplate = require('../lib/renderTemplate');
+const isAuth = require('../middleware/isAuth');
 
 const Register = require('../views/Register');
 const Login = require('../views/Login');
@@ -68,7 +69,7 @@ router.get('/logout', (req, res) => {
   });
 });
 
-router.post('/new-order', async (req, res) => {
+router.post('/new-order', isAuth, async (req, res) => {
   const { name, price, address } = req.body;
   const username = req.session?.user?.couriername;
   let rusName;
@@ -155,8 +156,7 @@ router.post('/new-order', async (req, res) => {
   }
 });
 
-router.patch('/orders/:id', async (req, res) => {
-  //   const username = req.session?.username;
+router.patch('/orders/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   try {
     const currOffer = await Offer.findOne({
@@ -177,7 +177,7 @@ router.patch('/orders/:id', async (req, res) => {
   }
 });
 
-router.delete('/orders/:id', async (req, res) => {
+router.delete('/orders/:id', isAuth, async (req, res) => {
   //   const username = req.session?.username;
   const { id } = req.params;
   try {
