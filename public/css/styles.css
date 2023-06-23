@@ -685,6 +685,10 @@ video {
   height: 12rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .max-h-10 {
   max-height: 2.5rem;
 }
@@ -703,6 +707,10 @@ video {
 
 .max-h-16 {
   max-height: 4rem;
+}
+
+.max-h-9 {
+  max-height: 2.25rem;
 }
 
 .min-h-full {
@@ -732,6 +740,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-7 {
+  width: 1.75rem;
 }
 
 .max-w-screen-xl {
@@ -945,6 +957,10 @@ video {
 
 .pr-4 {
   padding-right: 1rem;
+}
+
+.pt-1 {
+  padding-top: 0.25rem;
 }
 
 .text-left {
