@@ -1,13 +1,12 @@
 const cabinetRoute = require('express').Router();
-const React = require('react');
 const renderTemplate = require('../lib/renderTemplate');
+const isAuth = require('../middleware/isAuth');
 
 const { Order, Client, Offer } = require('../../db/models');
 const Cabinet = require('../views/cabinet/Cabinet');
-const Purchased = require('../views/cabinet/Purchased');
 
 module.exports = cabinetRoute
-  .get('/:id/cabinet', async (req, res) => {
+  .get('/:id/cabinet', isAuth, async (req, res) => {
     try {
       const username = req.session?.user;
       const currClient = await Client.findOne({
@@ -26,7 +25,7 @@ module.exports = cabinetRoute
       res.sendStatus(500).json(error);
     }
   })
-  .post('/:id/cabinet', async (req, res) => {
+  .post('/:id/cabinet', isAuth, async (req, res) => {
     try {
       const { id } = req.params;
       const { phone, address } = req.body;

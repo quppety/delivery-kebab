@@ -21,7 +21,7 @@ module.exports = function Layout(props) {
               <img
                 id="logo-img"
                 src="/img/img-deliver/logo.svg"
-                className="w-7 h-7 mr-1"
+                className="max-w-16 max-h-16 mr-1"
                 alt="deliver-kebub-logo"
               />
               <span
@@ -63,9 +63,9 @@ module.exports = function Layout(props) {
                 >
                   <a href="/clients/logout">
                     <img
-                      src="/img/182448.png"
+                      src="/img/logout.svg"
                       alt=""
-                      className="max-w-10 max-h-10"
+                      className="max-w-9 max-h-9 pt-1"
                     />
                   </a>
                 </button>
