@@ -1,16 +1,18 @@
 const router = require('express').Router();
 const renderTemplate = require('../lib/renderTemplate');
+const isAuth = require('../middleware/isAuth');
+
 const CourierOrders = require('../views/courier/CourierOrders');
 const Profile = require('../views/courier/Profile');
 
 const { Offer, Courier, Order, Client } = require('../../db/models');
 
-router.get('/couriers/profile', async (req, res) => {
+router.get('/couriers/profile', isAuth, async (req, res) => {
   const username = req.session?.user;
   renderTemplate(Profile, { username }, res);
 });
 
-router.get('/couriers/orders', async (req, res) => {
+router.get('/couriers/orders', isAuth, async (req, res) => {
   const username = req.session?.user;
   const couriername = req.session?.user?.couriername;
   try {
