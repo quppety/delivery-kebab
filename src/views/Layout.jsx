@@ -20,9 +20,9 @@ module.exports = function Layout(props) {
             <a href="/" className="flex items-center">
               <img
                 id="logo-img"
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8 mr-3"
-                alt="Flowbite Logo"
+                src="/img/img-deliver/logo.svg"
+                className="max-w-16 max-h-16 mr-1"
+                alt="deliver-kebub-logo"
               />
               <span
                 id="logo-span"
@@ -63,9 +63,9 @@ module.exports = function Layout(props) {
                 >
                   <a href="/clients/logout">
                     <img
-                      src="/img/182448.png"
+                      src="/img/logout.svg"
                       alt=""
-                      className="max-w-10 max-h-10"
+                      className="max-w-9 max-h-9 pt-1"
                     />
                   </a>
                 </button>
@@ -167,6 +167,27 @@ module.exports = function Layout(props) {
         />
       </body>
       <script src="/js/application.js" />
+      <footer className="bg-white rounded-lg shadow m-4">
+        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+          <span className="text-sm text-gray-500 sm:text-center">
+            ©️ 2023{' '}
+            <a href="http://localhost:3000/" className="hover:underline">
+              DeliveryKebub™️
+            </a>
+            . All Rights Reserved.
+          </span>
+          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-green-500 sm:mt-0">
+            <li>
+              <a
+                href="http://localhost:3000/"
+                className="mr-4 hover:underline md:mr-6 "
+              >
+                A company which makes you satisfied
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </html>
   );
 };

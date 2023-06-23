@@ -100,7 +100,7 @@ module.exports = function Registr() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Уже зарегистрированы?{' '}
             <a
-              href="/login"
+              href="/clients/login"
               className="font-semibold leading-6 text-green-600 hover:text-green-500"
             >
               Войдите в вашу учетную запись
