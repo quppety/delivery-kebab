@@ -20,9 +20,9 @@ module.exports = function Layout(props) {
             <a href="/" className="flex items-center">
               <img
                 id="logo-img"
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8 mr-3"
-                alt="Flowbite Logo"
+                src="/img/img-deliver/logo.svg"
+                className="w-7 h-7 mr-1"
+                alt="deliver-kebub-logo"
               />
               <span
                 id="logo-span"
