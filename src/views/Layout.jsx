@@ -63,9 +63,9 @@ module.exports = function Layout(props) {
                 >
                   <a href="/clients/logout">
                     <img
-                      src="/img/182448.png"
+                      src="/img/logout.svg"
                       alt=""
-                      className="max-w-10 max-h-10"
+                      className="max-w-9 max-h-9 pt-1"
                     />
                   </a>
                 </button>
