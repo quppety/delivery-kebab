@@ -7,7 +7,7 @@ module.exports = function Main({ user, offers }) {
     <Layout user={user}>
       {user && user.address !== null ? (
         <div id="page">
-          <div id="container">
+          <div id="container-spinner">
             <div id="ring" />
             <div id="ring" />
             <div id="ring" />
@@ -29,7 +29,11 @@ module.exports = function Main({ user, offers }) {
                 <div className="ribbon ribbon-top-right">
                   <span>-50%</span>
                 </div>
-                <img className="rounded-t-lg w-full" src={offer.image} alt="" />
+                <img
+                  className="rounded-t-lg object-cover w-72"
+                  src={offer.image}
+                  alt=""
+                />
 
                 <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
@@ -45,7 +49,7 @@ module.exports = function Main({ user, offers }) {
                   <div id={`distance-${offer.id}`} />
                   {user ? (
                     user.couriername ? (
-                      <div></div>
+                      <div />
                     ) : (
                       <div className="flex justify-center">
                         <button
@@ -61,7 +65,7 @@ module.exports = function Main({ user, offers }) {
                   ) : (
                     <a
                       href="/clients/login"
-                      className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+                      className="inline-flex items-center mx-auto px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
                     >
                       Войдите, чтобы выкупить заказ
                     </a>
