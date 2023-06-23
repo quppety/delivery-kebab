@@ -21,22 +21,6 @@ module.exports = function Main({ user, offers }) {
           id="container"
         >
           {offers.map((offer) => (
-<<<<<<< HEAD
-            <div className="box max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <div className="ribbon ribbon-top-right">
-                <span>-50%</span>
-              </div>
-              <a href="#">
-                <img
-                  className="rounded-t-lg"
-                  src={offer.image} //! здесь добавила
-                  alt="здесь будет картинка"
-                />
-              </a>
-              <div className="p-5">
-                <a href="#">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-=======
             <div
               className="max-w-64 m-5 bg-white border border-gray-200 rounded-lg shadow"
               key={offer.id}
@@ -49,7 +33,6 @@ module.exports = function Main({ user, offers }) {
 
                 <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
->>>>>>> 34945df30f3ed9c669cfcc42438dcbe615ef0da5
                     {offer.name}
                   </h5>
 
@@ -61,16 +44,20 @@ module.exports = function Main({ user, offers }) {
                   </p>
                   <div id={`distance-${offer.id}`} />
                   {user ? (
-                    <div className="flex justify-center">
-                      <button
-                        type="button"
-                        id="get-offer-btn"
-                        data-offer-id={offer.id}
-                        className="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
-                      >
-                        Выкупить
-                      </button>
-                    </div>
+                    user.couriername ? (
+                      <div></div>
+                    ) : (
+                      <div className="flex justify-center">
+                        <button
+                          type="button"
+                          id="get-offer-btn"
+                          data-offer-id={offer.id}
+                          className="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+                        >
+                          Выкупить
+                        </button>
+                      </div>
+                    )
                   ) : (
                     <a
                       href="/clients/login"
@@ -90,16 +77,8 @@ module.exports = function Main({ user, offers }) {
         </h3>
       )}
       <div id="map-test" className="map" />
-<<<<<<< HEAD
-      <script
-        defer
-        src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU"
-      />
-      <script defer src="/js/map.js" />
-=======
       <script src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU" />
       <script src="/js/map.js" />
->>>>>>> 34945df30f3ed9c669cfcc42438dcbe615ef0da5
     </Layout>
   );
 };
