@@ -2,10 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 80px;
 }
 
-#container-spinner {
+#container {
   display: flex;
   justify-content: center;
   align-items: center;

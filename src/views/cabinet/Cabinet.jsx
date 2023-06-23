@@ -6,7 +6,7 @@ const Layout = require('../Layout');
 module.exports = function Cabinet({ username, orders, currClient }) {
   return (
     <Layout user={username}>
-      <div id="order-client">
+      <div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <p className="block text-m font-medium leading-6 mb-10 text-gray-900">
             Заполните ваши данные, чтобы сделать заказ
