@@ -22,11 +22,8 @@ router.get('/map', async (req, res) => {
       order: [['id', 'ASC']],
       where: { status: 'Размещен' },
     });
-    console.log(addressCourier);
     res.send([addressClient, addressCourier]);
   }
-
-  // console.log(addressClient.address);
 });
 
 module.exports = router;

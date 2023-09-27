@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const expressSession = require('express-session');
 const path = require('path');
-// для хранения даннах из куки
 const FileStore = require('session-file-store')(expressSession);
 
 const viewsRouter = require('./routes/views');
@@ -17,12 +16,12 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const sessionConfig = {
-  store: new FileStore(), // добавить после установки session-file-store
+  store: new FileStore(),
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 800 * 60 * 1000, // устанавливаем сколько живет кука
+    maxAge: 800 * 60 * 1000,
     httpOnly: true,
   },
 };

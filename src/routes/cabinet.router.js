@@ -19,7 +19,6 @@ module.exports = cabinetRoute
         raw: true,
         nest: true,
       });
-      console.log(orders);
       renderTemplate(Cabinet, { username, orders, currClient }, res);
     } catch (error) {
       res.sendStatus(500).json(error);
