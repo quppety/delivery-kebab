@@ -42,46 +42,44 @@ module.exports = function CourierOrders(props) {
               <th scope="col" className="px-6 py-3" />
             </tr>
           </thead>
-          <tbody>
+          <tbody id="courier-offer-container">
             {offers.map((offer) => (
-              <div>
-                <tr className="px-24 bg-white border-b">
-                  <td className="w-32 p-4">{offer.id}</td>
-                  <td className="w-32 p-4">{offer.name}</td>
-                  <td
-                    id={`${offer.id}-offer-status`}
-                    className="px-6 py-4 font-semibold text-gray-900"
+              <tr key={offer.id} className="px-24 bg-white border-b">
+                <td className="w-32 p-4">{offer.id}</td>
+                <td className="w-32 p-4">{offer.name}</td>
+                <td
+                  id={`${offer.id}-offer-status`}
+                  className="px-6 py-4 font-semibold text-gray-900"
+                >
+                  {offer.status}
+                </td>
+                <td className="px-6 py-4 font-semibold text-gray-900">
+                  {offer.Orders.Client.phone}
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex items-center space-x-3">
+                    {offer.Orders.Client.address}
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <button
+                    id="close-order"
+                    data-offer-id={offer.id}
+                    type="button"
+                    className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                   >
-                    {offer.status}
-                  </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900">
-                    {offer.Orders.Client.phone}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center space-x-3">
-                      {offer.Orders.Client.address}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      id="close-order"
-                      data-offer-id={offer.id}
-                      type="button"
-                      className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                    >
-                      Доставлен
-                    </button>
-                    <button
-                      id="delete-offer"
-                      data-offer-id={offer.id}
-                      type="button"
-                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                    >
-                      Удалить
-                    </button>
-                  </td>
-                </tr>
-              </div>
+                    Доставлен
+                  </button>
+                  <button
+                    id="delete-offer"
+                    data-offer-id={offer.id}
+                    type="button"
+                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                  >
+                    Удалить
+                  </button>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>

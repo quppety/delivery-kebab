@@ -1,12 +1,11 @@
 const addOrderForm = document.querySelector('#add-order-form');
-const closeOrderBtns = document.querySelectorAll('#close-order');
-const delOfferBtns = document.querySelectorAll('#delete-offer');
-const getOfferBtns = document.querySelectorAll('#get-offer-btn');
+const mainOffersContainer = document.getElementById('container');
+const errMsg = document.querySelector('#err-msg');
+const clientInfoForm = document.querySelector('#client-info-form');
 
 addOrderForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
-  console.log(Object.fromEntries(data));
   try {
     const response = await fetch('/couriers/new-order', {
       method: 'POST',
@@ -29,86 +28,94 @@ addOrderForm?.addEventListener('submit', async (e) => {
   }
 });
 
-closeOrderBtns?.forEach((closeOrderBtn) => {
-  closeOrderBtn?.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const { offerId } = closeOrderBtn.dataset;
-    try {
-      const response = await fetch(`/couriers/orders/${offerId}`, {
-        method: 'PATCH',
-        credentials: 'include',
-      });
-      if (response.status === 200) {
-        const currStatus = document.getElementById(`${offerId}-offer-status`);
-        currStatus.innerText = 'Доставлен';
-      } else {
-        const warning = document.createElement('p');
-        warning.innerText = 'Something went wrong, try again later';
-        closeOrderBtn.parentNode.parentNode.prepend(warning);
-        setTimeout(() => {
-          warning.remove();
-        }, 2000);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  });
-});
+mainOffersContainer?.addEventListener('click', async (e) => {
+  const getOfferBtn = e.target.closest('.btn-get-offer');
 
-getOfferBtns?.forEach((getOfferBtn) => {
-  getOfferBtn?.addEventListener('click', async (e) => {
+  if (getOfferBtn) {
     e.preventDefault();
     const { offerId } = getOfferBtn.dataset;
-    console.log(offerId);
     try {
       const response = await fetch(`/get-offer/${offerId}`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         credentials: 'include',
       });
+
       if (response.status === 200) {
         getOfferBtn.innerText = 'Выкуплен!';
-      } else {
-        const warning = document.createElement('p');
-        warning.innerText = 'Что-то пошло не так, попробуйте заказать позже';
-        getOfferBtn.parentNode.parentNode.prepend(warning);
+      } else if (response.status === 401) {
+        errMsg.innerText = 'Добавьте ваш номер телефона и адрес в профиле';
         setTimeout(() => {
-          warning.remove();
+          errMsg.innerText = '';
+        }, 2000);
+      } else {
+        errMsg.innerText = 'Что-то пошло не так, попробуйте заказать позже';
+        setTimeout(() => {
+          errMsg.innerText = '';
         }, 2000);
       }
     } catch (error) {
       console.log(error);
     }
-  });
+  }
 });
 
-delOfferBtns?.forEach((delOfferBtn) => {
-  delOfferBtn?.addEventListener('click', async (e) => {
-    e.preventDefault();
+const courierOffersContainer = document.getElementById(
+  'courier-offer-container',
+);
+courierOffersContainer?.addEventListener('click', async (e) => {
+  const delOfferBtn = e.target.closest('#delete-offer');
+  const closeOrderBtn = e.target.closest('#close-order');
 
+  if (delOfferBtn) {
+    e.preventDefault();
     const { offerId } = delOfferBtn.dataset;
+
     try {
       const response = await fetch(`/couriers/orders/${offerId}`, {
         method: 'DELETE',
         credentials: 'include',
       });
+
       if (response.status === 200) {
-        delOfferBtn.parentNode.parentNode.remove();
+        delOfferBtn.closest('tr').remove(); // Remove the entire table row
       } else {
-        const warning = document.createElement('p');
-        warning.innerText = 'Something went wrong, try again later';
-        delOfferBtn.parentNode.parentNode.prepend(warning);
+        errMsg.innerText = 'Что-то пошло не так, попробуйте позже';
         setTimeout(() => {
-          warning.remove();
+          errMsg.remove();
         }, 2000);
       }
     } catch (error) {
       console.log(error);
     }
-  });
-});
+  }
 
-const clientInfoForm = document.querySelector('#client-info-form');
+  if (closeOrderBtn) {
+    e.preventDefault();
+    const { offerId } = closeOrderBtn.dataset;
+
+    try {
+      const response = await fetch(`/couriers/orders/${offerId}`, {
+        method: 'PATCH',
+        credentials: 'include',
+      });
+
+      if (response.status === 200) {
+        const currStatus = document.getElementById(`${offerId}-offer-status`);
+        if (currStatus) {
+          currStatus.innerText = 'Доставлен';
+        }
+      } else {
+        errMsg.innerText = 'Что-то пошло не так, попробуйте позже';
+        setTimeout(() => {
+          errMsg.innerText = '';
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
 
 clientInfoForm?.addEventListener('submit', async (e) => {
   e.preventDefault();

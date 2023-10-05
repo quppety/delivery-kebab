@@ -8,11 +8,16 @@ module.exports = function Layout(props) {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          rel="icon"
+          href="/img/img-deliver/logo.svg"
+          type="image/svg+xml"
+        />
         <link rel="stylesheet" href="/css/styles.css" />
         <link rel="stylesheet" href="/css/spiner.css" />
         <link rel="stylesheet" href="/css/media.css" />
 
-        <title>Document</title>
+        <title>Delivery Kebab</title>
       </head>
       <body className="mx-5 min-h-screen flex flex-col">
         <nav className="mb-10 bg-white border-gray-200">
@@ -148,7 +153,7 @@ module.exports = function Layout(props) {
             </div>
           </div>
         </nav>
-
+        <p id="err-msg" className="text-center text-base my-5" />
         {children}
         <script
           src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
