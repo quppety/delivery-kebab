@@ -46,7 +46,7 @@ router.get('/orders', isAuth, isCourier, async (req, res) => {
       raw: true,
     });
     const offers = await Offer.findAll({
-      order: [['createdAt', 'DESC']],
+      order: [['updatedAt', 'DESC']],
       where: { user_id: currUser.id },
       include: [{ model: Order, include: [User] }],
       raw: true,

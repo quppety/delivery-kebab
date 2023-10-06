@@ -576,6 +576,10 @@ video {
   bottom: 0px;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .m-5 {
   margin: 1.25rem;
 }
@@ -828,6 +832,10 @@ video {
   min-height: 77vh;
 }
 
+.min-h-\[80vh\] {
+  min-height: 80vh;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -1022,6 +1030,11 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .object-cover {
