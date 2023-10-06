@@ -2,10 +2,10 @@ const React = require('react');
 const Layout = require('../Layout');
 
 module.exports = function CourierOrders(props) {
-  const { username, offers } = props;
+  const { user, offers } = props;
   return (
-    <Layout user={username}>
-      <div className="my-24 relative overflow-x-auto sm:rounded-lg">
+    <Layout user={user}>
+      <div className="my-5 relative overflow-x-auto sm:rounded-lg">
         <p className="flex justify-center font-medium rounded-lg text-xl px-5 py-2.5 mr-2 mb-2">
           Мои заказы
         </p>
@@ -13,7 +13,7 @@ module.exports = function CourierOrders(props) {
           <a
             id="back-btn"
             className="justify-start text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-            href="/couriers/profile"
+            href="/profile"
           >
             Назад
           </a>
@@ -39,30 +39,32 @@ module.exports = function CourierOrders(props) {
               <th scope="col" className="px-6 py-3">
                 Адрес клиента
               </th>
-              <th scope="col" className="px-6 py-3" />
+              <th scope="col" className="px-6 py-3">
+                Управление заказом
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="courier-offer-container">
             {offers.map((offer) => (
-              <div>
-                <tr className="px-24 bg-white border-b">
-                  <td className="w-32 p-4">{offer.id}</td>
-                  <td className="w-32 p-4">{offer.name}</td>
-                  <td
-                    id={`${offer.id}-offer-status`}
-                    className="px-6 py-4 font-semibold text-gray-900"
-                  >
-                    {offer.status}
-                  </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900">
-                    {offer.Orders.Client.phone}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center space-x-3">
-                      {offer.Orders.Client.address}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
+              <tr key={offer.id} className="px-24 bg-white border-b">
+                <td className="w-32 p-4">{offer.id}</td>
+                <td className="w-32 p-4">{offer.name}</td>
+                <td
+                  id={`${offer.id}-offer-status`}
+                  className="px-6 py-4 font-semibold text-gray-900"
+                >
+                  {offer.status}
+                </td>
+                <td className="px-6 py-4 font-semibold text-gray-900">
+                  {offer.Orders.User.phone}
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex items-center space-x-3">
+                    {offer.Orders.User.address}
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  {offer.status !== 'Доставлен' && (
                     <button
                       id="close-order"
                       data-offer-id={offer.id}
@@ -71,6 +73,8 @@ module.exports = function CourierOrders(props) {
                     >
                       Доставлен
                     </button>
+                  )}
+                  {offer.status === 'Размещен' && (
                     <button
                       id="delete-offer"
                       data-offer-id={offer.id}
@@ -79,9 +83,9 @@ module.exports = function CourierOrders(props) {
                     >
                       Удалить
                     </button>
-                  </td>
-                </tr>
-              </div>
+                  )}
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>

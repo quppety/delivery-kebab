@@ -2,18 +2,19 @@ const center = [48.8866527839977, 2.34310679732974];
 
 async function init() {
   const response = await fetch('http://localhost:3000/map', {});
-  const adress = await response.json();
+  const [userData, offerData] = await response.json();
+  const clientAddress = userData.address;
 
-  const adressClient = adress[0].address;
   const map = new ymaps.Map('map-test', {
     center,
     zoom: 17,
   });
 
-  if (adressClient !== null) {
-    const addressProduct = adress[1];
+  let pointA;
 
-    const geocodePromises = addressProduct.map(
+  const container = document.querySelector('#container');
+  if (clientAddress !== null) {
+    const geocodePromises = offerData.map(
       (el) =>
         new Promise((resolve) => {
           setTimeout(async () => {
@@ -27,7 +28,6 @@ async function init() {
                 pointB,
               );
               el.distance = distance;
-              console.log('Расстояние между точками:', distance, 'м');
             } catch (error) {
               console.error(
                 'Произошла ошибка при вычислении расстояния:',
@@ -38,25 +38,20 @@ async function init() {
           }, 100);
         }),
     );
-    console.log('!!!!!!!!!!!!!!!!!!!!', adress[1]);
-    const resultA = await ymaps.geocode(adressClient);
-    var pointA = resultA.geoObjects.get(0).geometry.getCoordinates();
+
+    const resultA = await ymaps.geocode(clientAddress);
+    pointA = resultA.geoObjects.get(0).geometry.getCoordinates();
 
     await Promise.all(geocodePromises);
 
-    const adressProduct = adress[1];
+    offerData.sort((a, b) => a.distance - b.distance);
 
-    adressProduct.sort((a, b) => a.distance - b.distance);
-
-    // const container = await document.getElementById(`page-${el.id}`);
-    const container = document.querySelector('#page');
-    container.classList = 'flex flex-wrap justify-center mx-auto px-15';
-    if (adressProduct.length > 0) {
-      container.innerHTML = adressProduct
+    if (offerData.length > 0) {
+      container.innerHTML = `<div class="h-5/6 flex flex-row flex-wrap justify-center"> ${offerData
         .map(
           (el) => `
-          <div class="max-w-64 m-5 bg-white border border-gray-200 rounded-lg shadow">
-              <div class="box">
+          <div class="m-5 bg-white border border-gray-200 rounded-lg shadow" style="min-width: 300px;" >
+              <div class="box rounded-t-lg">
                 <div class="ribbon ribbon-top-right">
                   <span>-50%</span>
                 </div>
@@ -65,7 +60,7 @@ async function init() {
                 src=${el.image}
                 alt=""
               />
-            <div class="p-5">
+            <div class="p-5 text-center">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                   ${el.name}
                 </h5>
@@ -89,78 +84,14 @@ async function init() {
           </div>
         </div>`,
         )
-        .join('');
+        .join('')} </div>`;
     } else {
       container.innerHTML = `
-        <h3 class="flex justify-center m-auto text-m font-medium leading-6 mb-10 text-gray-900">
+      <h3 class="mt-24 text-center text-xl font-medium leading-6 text-gray-900 sm:mt-56">
           Сейчас нет актуальных предложений, зайдите позже
         </h3>`;
     }
   }
-  const getOfferBtns = document.querySelectorAll('#get-offer-btn');
-  getOfferBtns?.forEach((getOfferBtn) => {
-    getOfferBtn?.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const { offerId } = getOfferBtn.dataset;
-      console.log(offerId);
-      try {
-        const response = await fetch(`/get-offer/${offerId}`, {
-          method: 'POST',
-          headers: { 'Content-type': 'application/json' },
-          credentials: 'include',
-        });
-        if (response.status === 200) {
-          getOfferBtn.innerText = 'Выкуплен!';
-        } else {
-          const warning = document.createElement('p');
-          warning.innerText = 'Что-то пошло не так, попробуйте заказать позже';
-          getOfferBtn.parentNode.parentNode.prepend(warning);
-          setTimeout(() => {
-            warning.remove();
-          }, 2000);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  });
 }
 
 ymaps.ready(init);
-
-//  <div class="max-w-fit m-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-//           <a href="#">
-//             <img
-//               class="rounded-t-lg"
-//               src=""
-//               alt="здесь будет картинка"
-//             />
-//           </a>
-//           <div class="p-5">
-//             <a href="#">
-//               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-//                 ${el.name}
-//               </h5>
-//             </a>
-//             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-//               Цена со скидкой: ${el.price / 2}
-//             </p>
-//             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-//               Изначальная цена: ${el.price}
-//             </p>
-//             <p>Расстояние: ${Math.round(el.distance)} метров</p>
-//             <button
-//             id="get-offer-btn"
-//             data-offer-id=${el.id}
-//             class="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-//             >
-//               Выкупить
-//             </button>
-//             <a
-//               href="#"
-//               class="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-//             >
-//               Подробнее
-//             </a>
-//           </div>
-//         </div>

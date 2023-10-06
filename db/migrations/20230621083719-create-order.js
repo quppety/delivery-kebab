@@ -8,12 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      client_id: {
+      user_id: {
         onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Clients',
+            tableName: 'Users',
           },
           key: 'id',
         },

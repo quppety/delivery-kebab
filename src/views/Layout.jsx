@@ -3,26 +3,27 @@ const React = require('react');
 module.exports = function Layout(props) {
   const { children, user } = props;
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/img/logo.svg" type="image/svg+xml" />
         <link rel="stylesheet" href="/css/styles.css" />
         <link rel="stylesheet" href="/css/spiner.css" />
         <link rel="stylesheet" href="/css/media.css" />
 
-        <title>Document</title>
+        <title>Delivery Kebab</title>
       </head>
-      <body className="mx-5 min-h-screen flex flex-col">
-        <nav className="mb-10 bg-white border-gray-200">
+      <body className="min-h-screen flex flex-col">
+        <nav className="mb-0 bg-white border-gray-200 sm:mb-5">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" className="flex items-center">
               <img
                 id="logo-img"
-                src="/img/img-deliver/logo.svg"
+                src="/img/logo.svg"
                 className="max-w-16 max-h-16 mr-1"
-                alt="deliver-kebub-logo"
+                alt="delivery-kebab-logo"
               />
               <span
                 id="logo-span"
@@ -40,13 +41,7 @@ module.exports = function Layout(props) {
                   aria-controls="navbar-default"
                   aria-expanded="false"
                 >
-                  <a
-                    href={`/${
-                      user.username
-                        ? `clients/${user.id}/cabinet`
-                        : 'couriers/profile'
-                    }`}
-                  >
+                  <a href="/profile">
                     <img
                       src="/img/profile-icon.png"
                       alt=""
@@ -61,11 +56,11 @@ module.exports = function Layout(props) {
                   aria-controls="navbar-default"
                   aria-expanded="false"
                 >
-                  <a href="/clients/logout">
+                  <a href="/users/logout">
                     <img
-                      src="/img/logout.svg"
+                      src="/img/logout.png"
                       alt=""
-                      className="max-w-9 max-h-9 pt-1"
+                      className="max-w-10 max-h-10"
                     />
                   </a>
                 </button>
@@ -78,7 +73,7 @@ module.exports = function Layout(props) {
                 aria-controls="navbar-default"
                 aria-expanded="false"
               >
-                <a href="/clients/login/">
+                <a href="/login/">
                   <img
                     src="/img/profile-icon.png"
                     alt=""
@@ -105,19 +100,15 @@ module.exports = function Layout(props) {
                   <>
                     <li>
                       <a
-                        href={`/${
-                          user.username
-                            ? `clients/${user.id}/cabinet`
-                            : 'couriers/profile'
-                        }`}
+                        href="/profile"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                       >
-                        {user.username || user.couriername}
+                        {user.username}
                       </a>
                     </li>
                     <li>
                       <a
-                        href="/clients/logout/"
+                        href="/users/logout/"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                       >
                         Выход
@@ -128,7 +119,7 @@ module.exports = function Layout(props) {
                   <>
                     <li>
                       <a
-                        href="/clients/login/"
+                        href="/login/"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                       >
                         Вход
@@ -136,7 +127,7 @@ module.exports = function Layout(props) {
                     </li>
                     <li>
                       <a
-                        href="/clients/register/"
+                        href="/register/"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
                       >
                         Регистрация
@@ -148,44 +139,27 @@ module.exports = function Layout(props) {
             </div>
           </div>
         </nav>
-
+        <p id="err-msg" className="text-center text-base" />
         {children}
-        <script
-          src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-          crossOrigin="anonymous"
-        />
-        <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-          crossOrigin="anonymous"
-        />
-        <script
-          src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-          crossOrigin="anonymous"
-        />
+        <footer className="bg-white sm:my-5 dark:bg-gray-800">
+          <div className="w-full mx-auto max-w-screen-xl p-4 flex flex-wrap justify-end">
+            <span className="mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+              <a href="/" className="mr-4 hover:underline md:mr-6 ">
+                Zero Waste - All The Taste
+              </a>
+            </span>
+            <span className="text-sm text-gray-500 sm:text-center">
+              ©️ 2023{' '}
+              <a href="http://localhost:3000/" className="hover:underline">
+                Delivery Kebab™️
+              </a>
+            </span>
+          </div>
+        </footer>
       </body>
 
-      <footer className="mt-auto bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center">
-            ©️ 2023{' '}
-            <a href="http://localhost:3000/" className="hover:underline">
-              DeliveryKebub™️
-            </a>
-            . All Rights Reserved.
-          </span>
-          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-            <li>
-              <a href="/" className="mr-4 hover:underline md:mr-6 ">
-                A company which makes you satisfied
-              </a>
-            </li>
-          </ul>
-        </div>
-      </footer>
-
+      <script src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU" />
+      <script src="/js/map.js" />
       <script src="/js/application.js" />
     </html>
   );

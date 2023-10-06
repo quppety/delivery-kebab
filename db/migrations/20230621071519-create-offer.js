@@ -19,12 +19,12 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
-      courier_id: {
+      user_id: {
         onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Couriers',
+            tableName: 'Users',
           },
           key: 'id',
         },

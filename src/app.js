@@ -6,10 +6,8 @@ const path = require('path');
 const FileStore = require('session-file-store')(expressSession);
 
 const viewsRouter = require('./routes/views');
-const courierRouter = require('./routes/courier');
 const orderRouter = require('./routes/order');
-const clientRouter = require('./routes/client');
-const cabinetRouter = require('./routes/cabinet.router');
+const usersRouter = require('./routes/users.router');
 const indexRouter = require('./routes/index');
 
 const app = express();
@@ -32,12 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(expressSession(sessionConfig));
 
-app.use('/clients', clientRouter);
-app.use('/clients', cabinetRouter);
-app.use('/couriers', courierRouter);
-app.use('/', orderRouter);
 app.use('/', viewsRouter);
 app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/orders', orderRouter);
 
 app.listen(PORT, async () => {
   console.log(`Server started on port ${PORT}`);
