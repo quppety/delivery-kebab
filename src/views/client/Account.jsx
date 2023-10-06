@@ -1,20 +1,24 @@
 const React = require('react');
 const Layout = require('../Layout');
 
-// const GetImages = require('../../apiUnsplash/GetImages');
-
-module.exports = function Cabinet({ username, orders, currClient }) {
+module.exports = function Account({ orders, currClient }) {
   return (
-    <Layout user={username}>
-      <div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <p className="block text-m font-medium leading-6 mb-10 text-gray-900">
-            Заполните ваши данные, чтобы сделать заказ
-          </p>
+    <Layout user={currClient}>
+      <div className="mx-5">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
+          {!currClient.phone || !currClient.address ? (
+            <p className="block text-m font-medium text-center leading-6 mb-10 text-gray-900">
+              Заполните ваши данные, чтобы сделать заказ
+            </p>
+          ) : (
+            <p className="block text-xl font-semibold text-center leading-6 mb-10 text-gray-900">
+              Ваши данные
+            </p>
+          )}
           <form
             id="client-info-form"
             method="POST"
-            action={`/clients/${username.id}/cabinet`}
+            action="/users/profile/info"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             <div className="my-4">
@@ -68,30 +72,35 @@ module.exports = function Cabinet({ username, orders, currClient }) {
         </div>
 
         <div className="mx-auto grid justify-center my-10">
-          <p className="block text-center text-m font-medium leading-6 mb-10 text-gray-900">
+          <p className="block text-center text-xl font-semibold leading-6 mb-8 text-gray-900">
             Ваши заказы
           </p>
           {orders.length > 0 ? (
-            <>
+            <div className="flex flex-row flex-wrap gap-5 justify-center sm:mx-5 lg:mx-16">
               {orders.map((order) => (
-                <div className="flex flex-col my-5 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100">
+                <div
+                  key={order.id}
+                  className="flex flex-col my-5 items-center w-80 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
+                >
                   <img
-                    className="object-cover w-fit rounded-t-lg h-48 md:h-26 md:w-48 md:rounded-none md:rounded-l-lg"
+                    className="object-cover w-full rounded-t-lg h-48"
                     src={order.Offer.image}
                     alt={order.Offer.name}
                   />
-                  <div className="flex flex-col justify-between p-4 leading-normal">
+                  <div className="flex flex-col justify-between p-4 leading-normal w-5/6">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                       {order.Offer.name}
                     </h5>
                     <p className="mb-3 font-normal text-gray-700">
-                      Цена: {order.Offer.price} руб.
+                      <span className="font-semibold">Цена: </span>
+                      {order.Offer.price} руб.
                     </p>
                     <p className="mb-3 font-normal text-gray-700">
-                      Вы заплатили: {order.Offer.price / 2} руб.
+                      <span className="font-semibold">Вы заплатили: </span>
+                      {order.Offer.price / 2} руб.
                     </p>
                     <p className="mb-3 font-normal text-gray-700">
-                      Статус:{' '}
+                      <span className="font-semibold">Статус: </span>
                       {order.Offer.status === 'Заказан' ? (
                         <>В пути </>
                       ) : (
@@ -101,7 +110,7 @@ module.exports = function Cabinet({ username, orders, currClient }) {
                   </div>
                 </div>
               ))}
-            </>
+            </div>
           ) : (
             <h3 className="flex justify-center m-auto text-m font-medium leading-6 mb-10 text-gray-900">
               Пока что у вас нет заказов

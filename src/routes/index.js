@@ -2,7 +2,7 @@ const router = require('express').Router();
 const renderTemplate = require('../lib/renderTemplate');
 const Main = require('../views/Main');
 
-const { Offer, Client } = require('../../db/models');
+const { Offer, User } = require('../../db/models');
 
 router.get('/', async (req, res) => {
   const { user } = req.session;
@@ -14,10 +14,11 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/map', async (req, res) => {
-  const username = req.session?.user;
-  // const couriername = req.session?.user?.couriername;
-  if (username) {
-    const addressClient = await Client.findOne({ where: { id: username.id } });
+  const { user } = req.session;
+  if (user) {
+    const addressClient = await User.findOne({
+      where: { username: user.username },
+    });
     const addressCourier = await Offer.findAll({
       order: [['id', 'ASC']],
       where: { status: 'Размещен' },

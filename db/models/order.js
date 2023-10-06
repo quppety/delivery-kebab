@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(
-        models.Client,
-        { foreignKey: 'client_id' },
+        models.User,
+        { foreignKey: 'user_id' },
         { onDelete: 'CASCADE' },
       );
       this.belongsTo(
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Order.init(
     {
-      client_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
       offer_id: DataTypes.INTEGER,
     },
     {

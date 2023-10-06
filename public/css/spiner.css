@@ -1,86 +1,22 @@
-#page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #container-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  /* height: 100vh; */
-  margin-top: 300px;
-}
-
-#h3 {
-  color: white;
-}
-
-#ring {
-  width: 190px;
-  height: 190px;
-  border: 1px solid transparent;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, .3);
   border-radius: 50%;
-  position: absolute;
+  border-top-color: #006b2d;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
 }
 
-#ring:nth-child(1) {
-  border-bottom: 8px solid rgb(255, 141, 249);
-  animation: rotate1 2s linear infinite;
-}
-
-@keyframes rotate1 {
-  from {
-    transform: rotateX(50deg) rotateZ(110deg);
-  }
-
+@keyframes spin {
   to {
-    transform: rotateX(50deg) rotateZ(470deg);
+    -webkit-transform: rotate(360deg);
   }
 }
 
-#ring:nth-child(2) {
-  border-bottom: 8px solid rgb(255, 65, 106);
-  animation: rotate2 2s linear infinite;
-}
-
-@keyframes rotate2 {
-  from {
-    transform: rotateX(20deg) rotateY(50deg) rotateZ(20deg);
-  }
-
+@-webkit-keyframes spin {
   to {
-    transform: rotateX(20deg) rotateY(50deg) rotateZ(380deg);
-  }
-}
-
-#ring:nth-child(3) {
-  border-bottom: 8px solid rgb(0, 255, 255);
-  animation: rotate3 2s linear infinite;
-}
-
-@keyframes rotate3 {
-  from {
-    transform: rotateX(40deg) rotateY(130deg) rotateZ(450deg);
-  }
-
-  to {
-    transform: rotateX(40deg) rotateY(130deg) rotateZ(90deg);
-  }
-}
-
-#ring:nth-child(4) {
-  border-bottom: 8px solid rgb(252, 183, 55);
-  animation: rotate4 2s linear infinite;
-}
-
-@keyframes rotate4 {
-  from {
-    transform: rotateX(70deg) rotateZ(270deg);
-  }
-
-  to {
-    transform: rotateX(70deg) rotateZ(630deg);
+    -webkit-transform: rotate(360deg);
   }
 }

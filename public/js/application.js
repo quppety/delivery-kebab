@@ -2,25 +2,28 @@ const addOrderForm = document.querySelector('#add-order-form');
 const mainOffersContainer = document.getElementById('container');
 const errMsg = document.querySelector('#err-msg');
 const clientInfoForm = document.querySelector('#client-info-form');
+const courierOffersContainer = document.getElementById(
+  'courier-offer-container',
+);
 
 addOrderForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
   try {
-    const response = await fetch('/couriers/new-order', {
+    const response = await fetch('/orders/offers', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(Object.fromEntries(data)),
       credentials: 'include',
     });
     if (response.status === 200) {
-      window.location.href = '/couriers/orders';
+      window.location.href = '/orders';
     } else {
-      const warning = document.createElement('p');
-      warning.innerText = 'Something went wrong, try again later';
-      addOrderForm.prepend(warning);
+      errMsg.classList = 'text-center text-base my-5';
+      errMsg.innerText = 'Что-то пошло не так, попробуйте заказать позже';
       setTimeout(() => {
-        warning.remove();
+        errMsg.classList = 'text-center text-base';
+        errMsg.innerText = '';
       }, 2000);
     }
   } catch (error) {
@@ -29,13 +32,12 @@ addOrderForm?.addEventListener('submit', async (e) => {
 });
 
 mainOffersContainer?.addEventListener('click', async (e) => {
-  const getOfferBtn = e.target.closest('.btn-get-offer');
-
-  if (getOfferBtn) {
+  const getOfferBtn = e.target;
+  if (getOfferBtn.id === 'get-offer-btn') {
     e.preventDefault();
     const { offerId } = getOfferBtn.dataset;
     try {
-      const response = await fetch(`/get-offer/${offerId}`, {
+      const response = await fetch(`/orders/offers/${offerId}`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         credentials: 'include',
@@ -44,13 +46,17 @@ mainOffersContainer?.addEventListener('click', async (e) => {
       if (response.status === 200) {
         getOfferBtn.innerText = 'Выкуплен!';
       } else if (response.status === 401) {
+        errMsg.classList = 'text-center text-base my-5';
         errMsg.innerText = 'Добавьте ваш номер телефона и адрес в профиле';
         setTimeout(() => {
+          errMsg.classList = 'text-center text-base';
           errMsg.innerText = '';
         }, 2000);
       } else {
+        errMsg.classList = 'text-center text-base my-5';
         errMsg.innerText = 'Что-то пошло не так, попробуйте заказать позже';
         setTimeout(() => {
+          errMsg.classList = 'text-center text-base';
           errMsg.innerText = '';
         }, 2000);
       }
@@ -60,9 +66,6 @@ mainOffersContainer?.addEventListener('click', async (e) => {
   }
 });
 
-const courierOffersContainer = document.getElementById(
-  'courier-offer-container',
-);
 courierOffersContainer?.addEventListener('click', async (e) => {
   const delOfferBtn = e.target.closest('#delete-offer');
   const closeOrderBtn = e.target.closest('#close-order');
@@ -72,7 +75,7 @@ courierOffersContainer?.addEventListener('click', async (e) => {
     const { offerId } = delOfferBtn.dataset;
 
     try {
-      const response = await fetch(`/couriers/orders/${offerId}`, {
+      const response = await fetch(`/orders/${offerId}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -80,8 +83,10 @@ courierOffersContainer?.addEventListener('click', async (e) => {
       if (response.status === 200) {
         delOfferBtn.closest('tr').remove(); // Remove the entire table row
       } else {
+        errMsg.classList = 'text-center text-base my-5';
         errMsg.innerText = 'Что-то пошло не так, попробуйте позже';
         setTimeout(() => {
+          errMsg.classList = 'text-center text-base';
           errMsg.remove();
         }, 2000);
       }
@@ -95,7 +100,7 @@ courierOffersContainer?.addEventListener('click', async (e) => {
     const { offerId } = closeOrderBtn.dataset;
 
     try {
-      const response = await fetch(`/couriers/orders/${offerId}`, {
+      const response = await fetch(`/orders/${offerId}`, {
         method: 'PATCH',
         credentials: 'include',
       });
@@ -106,8 +111,10 @@ courierOffersContainer?.addEventListener('click', async (e) => {
           currStatus.innerText = 'Доставлен';
         }
       } else {
+        errMsg.classList = 'text-center text-base my-5';
         errMsg.innerText = 'Что-то пошло не так, попробуйте позже';
         setTimeout(() => {
+          errMsg.classList = 'text-center text-base';
           errMsg.innerText = '';
         }, 2000);
       }
@@ -119,10 +126,9 @@ courierOffersContainer?.addEventListener('click', async (e) => {
 
 clientInfoForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const id = String(window.location.href).split('/')[4];
   const formData = new FormData(e.target);
   try {
-    const response = await fetch(`/clients/${id}/cabinet`, {
+    const response = await fetch('users/profile/info', {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(Object.fromEntries(formData)),
@@ -133,13 +139,20 @@ clientInfoForm?.addEventListener('submit', async (e) => {
       const approve = document.createElement('p');
       approve.innerText = 'Данные успешно добавлены';
       approve.classList =
-        'block text-sm mb-4 font-medium leading-6 text-gray-900';
+        'block text-sm text-center text-green-500 mb-4 font-medium leading-6 text-gray-900';
       e.target.prepend(approve);
+      setTimeout(() => {
+        approve.remove();
+      }, 1500);
     } else {
       const fail = document.createElement('p');
-      fail.classList = 'block text-sm font-medium leading-6 text-gray-900';
+      fail.classList =
+        'block text-sm text-center text-red-500 font-medium leading-6 text-gray-900';
       fail.innerText = 'Не удалось обновить данные';
       e.target.prepend(fail);
+      setTimeout(() => {
+        fail.remove();
+      }, 1500);
     }
   } catch (error) {
     console.error('An error occurred while submitting the form:', error);

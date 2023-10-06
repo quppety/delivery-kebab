@@ -5,29 +5,20 @@ const Layout = require('./Layout');
 module.exports = function Main({ user, offers }) {
   return (
     <Layout user={user}>
-      {user && user.address !== null ? (
-        <div id="page">
-          <div id="container-spinner">
-            <div id="ring" />
-            <div id="ring" />
-            <div id="ring" />
-            <div id="ring" />
-            <div id="h3">loading</div>
-          </div>
-        </div>
-      ) : offers.length > 0 ? (
-        <>
-          {/* <p id="err-msg" className="text-center text-base my-5" /> */}
-          <div
-            className="flex flex-wrap justify-center mx-auto px-15"
-            id="container"
-          >
+      <div
+        className="flex flex-row flex-wrap justify-center mx-auto px-15 min-h-screen"
+        id="container"
+      >
+        {user && user.address !== null ? (
+          <div id="container-spinner" className="mt-56" />
+        ) : offers.length > 0 ? (
+          <div className="h-5/6 flex flex-row flex-wrap justify-center">
             {offers.map((offer) => (
               <div
-                className="max-w-64 m-5 bg-white border border-gray-200 rounded-lg shadow"
+                className="min-w-64 m-5 bg-white border border-gray-200 rounded-lg shadow"
                 key={offer.id}
               >
-                <div className="box">
+                <div className="box rounded-t-lg">
                   <div className="ribbon ribbon-top-right">
                     <span>-50%</span>
                   </div>
@@ -37,7 +28,7 @@ module.exports = function Main({ user, offers }) {
                     alt=""
                   />
 
-                  <div className="p-5">
+                  <div className="p-5 text-center">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                       {offer.name}
                     </h5>
@@ -50,7 +41,7 @@ module.exports = function Main({ user, offers }) {
                     </p>
                     <div id={`distance-${offer.id}`} />
                     {user ? (
-                      user.couriername ? (
+                      user.isCourier ? (
                         <div />
                       ) : (
                         <div className="flex justify-center">
@@ -66,7 +57,7 @@ module.exports = function Main({ user, offers }) {
                       )
                     ) : (
                       <a
-                        href="/clients/login"
+                        href="/login"
                         className="inline-flex items-center mx-auto px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
                       >
                         Войдите, чтобы выкупить заказ
@@ -77,15 +68,13 @@ module.exports = function Main({ user, offers }) {
               </div>
             ))}
           </div>
-        </>
-      ) : (
-        <h3 className="flex justify-center m-auto text-m font-medium leading-6 mb-10 text-gray-900">
-          Сейчас нет актуальных предложений, зайдите позже
-        </h3>
-      )}
+        ) : (
+          <h3 className="mt-24 text-center text-xl font-medium leading-6 text-gray-900 sm:mt-56">
+            Сейчас нет актуальных предложений, зайдите позже
+          </h3>
+        )}
+      </div>
       <div id="map-test" className="map" />
-      <script src="https://api-maps.yandex.ru/2.1/?apikey=58e5bb3b-f8a7-4723-a88e-42c298ec42e6&lang=ru_RU" />
-      <script src="/js/map.js" />
     </Layout>
   );
 };
