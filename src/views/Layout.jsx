@@ -16,7 +16,7 @@ module.exports = function Layout(props) {
         <title>Delivery Kebab</title>
       </head>
       <body className="min-h-screen flex flex-col">
-        <nav className="mb-0 bg-white border-gray-200 sm:mb-5">
+        <nav className="sticky top-0 z-50 mb-0 bg-white border-gray-200 sm:mb-5">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" className="flex items-center">
               <img

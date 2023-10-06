@@ -13,8 +13,8 @@ Delivery Kebab is a project we did in three days for Elbrus Bootcamp. It's a fun
 <img width="920" alt="offers listed" src="https://github.com/quppety/delivery-kebab/assets/124813316/8bdeced7-7bf1-429b-b18e-743e0b37ad79">
 
 - **Order Purchase**: Customers can purchase discounted orders directly through the app.
-<img width="420" alt="mobile offer view" src="https://github.com/quppety/delivery-kebab/assets/124813316/66036337-5a72-45bb-a03d-f989c21af48b">
-<img width="420" alt="offer buyout" src="https://github.com/quppety/delivery-kebab/assets/124813316/9f3eef92-4dd5-4a2f-b5e0-d04d45941986">
+<img width="320" alt="mobile offer view" src="https://github.com/quppety/delivery-kebab/assets/124813316/66036337-5a72-45bb-a03d-f989c21af48b">
+<img width="320" alt="offer buyout" src="https://github.com/quppety/delivery-kebab/assets/124813316/9f3eef92-4dd5-4a2f-b5e0-d04d45941986">
 
 - **Order Tracking**: Couriers can change and track the order status.
 <img width="320" alt="courier account" src="https://github.com/quppety/delivery-kebab/assets/124813316/1d30df9e-f460-4045-8bfd-88e1d28e0560">

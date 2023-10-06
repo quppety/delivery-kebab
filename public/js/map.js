@@ -50,17 +50,20 @@ async function init() {
       container.innerHTML = `<div class="h-5/6 flex flex-row flex-wrap justify-center"> ${offerData
         .map(
           (el) => `
-          <div class="m-5 bg-white border border-gray-200 rounded-lg shadow" style="min-width: 300px;" >
-              <div class="box rounded-t-lg">
+          <div key=${
+            el.id
+          } class="m-5 bg-white border border-gray-200 rounded-lg shadow" style="width: 298px; height: 442px" >
+              <div class="box rounded-t-lg h-full" >
                 <div class="ribbon ribbon-top-right">
                   <span>-50%</span>
                 </div>
                 <img
-                class="rounded-t-lg w-full"
+                class="rounded-t-lg object-cover w-full"
+                style="height: 50%;"
                 src=${el.image}
                 alt=""
               />
-            <div class="p-5 text-center">
+            <div class="p-5 text-center" style="height: 50%;">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                   ${el.name}
                 </h5>
@@ -75,7 +78,7 @@ async function init() {
               <button
                 id="get-offer-btn"
                 data-offer-id=${el.id}
-                class="inline-flex items-center mt-4 mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+                class="inline-flex items-center my-4 mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
               >
                 Выкупить
               </button>

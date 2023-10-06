@@ -15,20 +15,22 @@ module.exports = function Main({ user, offers }) {
           <div className="h-5/6 flex flex-row flex-wrap justify-center">
             {offers.map((offer) => (
               <div
-                className="min-w-64 m-5 bg-white border border-gray-200 rounded-lg shadow"
+                className="m-5 bg-white border border-gray-200 rounded-lg shadow"
+                style={{ width: '298px', height: '442px' }}
                 key={offer.id}
               >
-                <div className="box rounded-t-lg">
+                <div className="box rounded-t-lg h-full">
                   <div className="ribbon ribbon-top-right">
                     <span>-50%</span>
                   </div>
                   <img
-                    className="rounded-t-lg object-cover w-72"
+                    className="rounded-t-lg object-cover w-full"
+                    style={{ height: '50%' }}
                     src={offer.image}
                     alt=""
                   />
 
-                  <div className="p-5 text-center">
+                  <div className="p-5 text-center" style={{ height: '50%' }}>
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                       {offer.name}
                     </h5>
@@ -49,19 +51,21 @@ module.exports = function Main({ user, offers }) {
                             type="button"
                             id="get-offer-btn"
                             data-offer-id={offer.id}
-                            className="inline-flex items-center mr-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+                            className="inline-flex items-center my-2 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
                           >
                             Выкупить
                           </button>
                         </div>
                       )
                     ) : (
-                      <a
-                        href="/login"
-                        className="inline-flex items-center mx-auto px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
-                      >
-                        Войдите, чтобы выкупить заказ
-                      </a>
+                      <div className="flex justify-center">
+                        <a
+                          href="/login"
+                          className="inline-flex items-center my-4 px-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300"
+                        >
+                          Войдите, чтобы выкупить заказ
+                        </a>
+                      </div>
                     )}
                   </div>
                 </div>
