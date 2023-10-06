@@ -37,9 +37,9 @@ Delivery Kebab is built with the following technologies:
 To try out Delivery Kebab, follow these steps:
 
 1. Clone this repository to your local machine.
-2. Install any necessary dependencies.
-3. Configure the app settings and environment variables.
-4. Run the application locally to see it in action.
+2. Install necessary dependencies by running **npm i**.
+3. Configure the app settings and environment variables from **.env-example**.
+4. Run the application locally to see it in action using **npm run dev**.
 
 ## Usage
 
